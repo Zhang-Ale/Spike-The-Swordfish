@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        /*if (Input.GetKey("d"))
+        if (Input.GetKey("d"))
         {
             rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey("w")) { rb.AddForce(0, 10, 0); }
 
-        if (Input.GetKey("s")) { rb.AddForce(0, -20, 0); }*/
+        if (Input.GetKey("s")) { rb.AddForce(0, -20, 0); }
     }
 
     void LookAround()
@@ -57,6 +57,11 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.tag == "Garbage")
+        {
+            Destroy(other.gameObject);
+        }
+
         if (other.gameObject == lastObstacle)
         {
             winText.SetActive(true);
