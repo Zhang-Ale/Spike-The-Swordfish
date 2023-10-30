@@ -8,18 +8,27 @@ public class PlayerMovement : MonoBehaviour
 
     public float forwardForce = 7000f;
     public float sidewaysForce = 120f;
+    public Vector2 rotationRange = new Vector2(.05f, .85f);
+    float rotationX, rotationY; 
 
-    public GameObject winText;
-    public GameObject lastObstacle;
-
-    void FixedUpdate()
+    public GameObject winText, lastObstacle;
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+    void Update()
     {
         rb.AddForce(0, 0, forwardForce * Time.deltaTime);
-
-        if (Input.GetKey("d"))
+        LookAround();
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        /*if (Input.GetKey("d"))
         {
             rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
-            transform.Rotate(90.0f, 0.0f, 0.0f, Space.Self);
         }
 
         if (Input.GetKey("a"))
@@ -27,10 +36,18 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
 
-        if (Input.GetKey("w")) { rb.AddForce(0, 45, 0); }
+        if (Input.GetKey("w")) { rb.AddForce(0, 10, 0); }
 
-        if (Input.GetKey("s")) { rb.AddForce(0, -40, 0); }
+        if (Input.GetKey("s")) { rb.AddForce(0, -20, 0); }*/
     }
+
+    void LookAround()
+    {
+        rotationX += Input.GetAxis("Mouse X") * sidewaysForce;
+        rotationY += Input.GetAxis("Mouse Y") * sidewaysForce;
+        transform.localRotation = Quaternion.Euler(-rotationY, rotationX, 0); 
+    }
+
     void OnCollisionEnter(Collision collisionInfo)
     {
         if (collisionInfo.collider.tag == "Obstacle")
