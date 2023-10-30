@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
 
     public float forwardForce = 7000f;
     public float sidewaysForce = 120f;
-    public Vector2 rotationRange = new Vector2(.05f, .85f);
     float rotationX, rotationY; 
 
     public GameObject winText, lastObstacle;
