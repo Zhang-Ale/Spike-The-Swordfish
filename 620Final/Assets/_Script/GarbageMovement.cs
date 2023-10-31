@@ -8,7 +8,7 @@ public class GarbageMovement : MonoBehaviour
     public Vector3 TargetPosition;
     private void Start()
     {
-        TargetPosition = new Vector3(transform.position.x - 12.6f, transform.position.y, transform.position.z);
+        //TargetPosition = new Vector3(transform.position.x - 12.6f, transform.position.y, transform.position.z);
     }
     void Update()
     {
