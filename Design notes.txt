@@ -1,0 +1,11 @@
+Swordfish swims around at beginning and end of levels (can rotate camera) but as soon as the swordfish swims through a ring, the level begins and the camera is locked, and you can only move forward.
+Ring provides speed boost? (Base swim movement is slow?) Slow and fast swimming animations.
+Small fish are afraid on swordfish in the early levels, but when garbage gets picked up, they dance and have notes above their heads
+First two levels, let player know how to swim and dodge, swim through rings (first five levels?)
+Different environments in first five levels, coral reefs in a level, underwater shipwrecks in a level, third level is coral reefs but less lively, closer to human activity. Water color slowly becomes greener. (Fourth level with underwater volcano?)
+End of fifth level, Spike meets an oil barrel leaking into the sea, as a cutscene.
+Sixth level, Spike passes through first barrel, moves on, less lively coral, fewer schools of fish, from sixth to tenth level. Examples of fish suffering from human pollution.
+Spike taught other fish how to deal with human garbage. 
+Beak can break human garbage, if interact button is pressed soon enough.
+Beak gets covered by garbage, shown in cutscene later at the end of the tenth level.
+From 11th to 15th level, friendships from other fishes are shown, from 16th to 20th level, still destroying garbage, but we meet a big ship. Game ends before 25th level.
