@@ -5,21 +5,21 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody rb;
-
     public float forwardForce = 7000f;
     public float sensitivity = 1;
     float rotationX, rotationY;
     public float rotationMin, rotationMax; 
+    private float lateralSpeed = 5.0f;
 
     public GameObject winText, lastObstacle;
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
     void Update()
     {
-        
         rb.AddForce(0, 0, forwardForce * Time.deltaTime);
         LookAround();
         if (Input.GetKey(KeyCode.Escape))
@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+        
 
         /*if (Input.GetKey("d"))
         {
@@ -39,6 +40,25 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey("w")) { rb.AddForce(0, 10, 0); }
         if (Input.GetKey("s")) { rb.AddForce(0, -20, 0); }*/
     }
+
+/*
+    void FixedUpdate()
+    {
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+        //if (movement.x != 0 && Mathf.Sign(movement.x) != Mathf.Sign(transform.localScale.x))
+        {
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, 0);
+            rb.velocity = movement * lateralSpeed;
+        }
+        
+        rb.AddForce(0, 0, forwardForce * Time.deltaTime);
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
+    */
 
     void LookAround()
     {
