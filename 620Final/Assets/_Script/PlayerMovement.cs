@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody rb;
-    public float forwardForce = 7000f;
+    public float forwardForce = 5000f;
     public float sensitivity = 1;
     float rotationX, rotationY;
-    public float rotationMin, rotationMax; 
-    private float lateralSpeed = 5.0f;
+    public float rotationMin, rotationMax;
+    private float lateralSpeed = 0.25f;
 
     public GameObject winText, lastObstacle;
     private void Start()
@@ -20,7 +20,8 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
-        rb.AddForce(0, 0, forwardForce * Time.deltaTime);
+        rb.AddForce(Input.GetAxis("Horizontal") * lateralSpeed, Input.GetAxis("Vertical") * lateralSpeed,
+            forwardForce * Time.deltaTime);
         LookAround();
         if (Input.GetKey(KeyCode.Escape))
         {
@@ -51,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = movement * lateralSpeed;
         }
         
+        /*
         rb.AddForce(0, 0, forwardForce * Time.deltaTime);
         if (Input.GetKey(KeyCode.Escape))
         {
