@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody rb;
-    public float forwardForce = 5000f;
+    public float forwardForce;
     public float sensitivity = 1;
     float rotationX, rotationY;
     public float rotationMin, rotationMax;
