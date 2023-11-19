@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Garbage
   - FishSchool
+  - Fish
   layers:
   - Default
   - TransparentFX
