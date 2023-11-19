@@ -5,7 +5,8 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public GameObject goals;
-    //public GameObject fishies;
+    public GameObject fishSchools;
+    GameObject newObject;
     Vector3 vector;
     const int numGoals = 10;
 
@@ -14,11 +15,11 @@ public class Spawner : MonoBehaviour
     {
         for(int i = 0; i < numGoals; ++i)
         {
-            vector = new Vector3(Random.Range(0f, 2f), Random.Range(0f, 5f), Random.Range(1000f,2000f));
-            GameObject newObject = Instantiate(goals, vector, Quaternion.identity);
+            vector = new Vector3(Random.Range(0f, 2f), Random.Range(0f, 5f), Random.Range(0f,2000f));
+            newObject = Instantiate(goals, vector, Quaternion.identity);
             FishSchoolScript.goalList.Add(newObject);
-            //vector = new Vector3(Random.Range(0f, 1000f), Random.Range(200f, 250f), Random.Range(0f,1000f));
-            //newObject = Instantiate(fishies, vector, Quaternion.identity);
+            vector = new Vector3(Random.Range(0f, 2f), Random.Range(0f, 5f), Random.Range(0f,2000f));
+            newObject = Instantiate(fishSchools, vector, Quaternion.identity);
         }
     }
 }

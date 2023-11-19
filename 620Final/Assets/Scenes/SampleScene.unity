@@ -1080,6 +1080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goals: {fileID: 1310277001}
+  fishSchools: {fileID: 284950283}
 --- !u!4 &1310016580
 Transform:
   m_ObjectHideFlags: 0
