@@ -1,5 +1,27 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4990673380082704327
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94fcd11afffcb142908bfcb1e261fba, type: 3}
+  m_Name: MotionBlur
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  shutterAngle:
+    overrideState: 1
+    value: 270
+  sampleCount:
+    overrideState: 1
+    value: 10
 --- !u!114 &-3846788054962601876
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -79,10 +101,10 @@ MonoBehaviour:
     value: 65472
   diffusion:
     overrideState: 1
-    value: 9
+    value: 7
   anamorphicRatio:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.2
   color:
     overrideState: 1
     value: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
@@ -113,6 +135,8 @@ MonoBehaviour:
   - {fileID: 2583706478744713538}
   - {fileID: -1128195944326708361}
   - {fileID: 2931737707088787156}
+  - {fileID: 7246491517261385017}
+  - {fileID: -4990673380082704327}
 --- !u!114 &2583706478744713538
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -166,7 +190,7 @@ MonoBehaviour:
     value: 1
   temperature:
     overrideState: 1
-    value: 5
+    value: -25
   tint:
     overrideState: 0
     value: 0
@@ -178,7 +202,7 @@ MonoBehaviour:
     value: 0
   saturation:
     overrideState: 1
-    value: 5
+    value: 6
   brightness:
     overrideState: 0
     value: 0
@@ -187,7 +211,7 @@ MonoBehaviour:
     value: 0
   contrast:
     overrideState: 1
-    value: 7
+    value: 0
   mixerRedOutRedIn:
     overrideState: 0
     value: 100
@@ -220,7 +244,7 @@ MonoBehaviour:
     value: {x: 0.005160153, y: 0.5838349, z: 1, w: 0}
   gamma:
     overrideState: 1
-    value: {x: 0, y: 0.47859764, z: 1, w: 0}
+    value: {x: 0.09442145, y: 0.5832626, z: 1, w: 0}
   gain:
     overrideState: 1
     value: {x: 0, y: 0.5849204, z: 1, w: 0}
@@ -1451,10 +1475,10 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.475
+    value: 0.4
   smoothness:
     overrideState: 1
-    value: 0.268
+    value: 0.36
   roundness:
     overrideState: 0
     value: 1
@@ -1466,5 +1490,33 @@ MonoBehaviour:
     value: {fileID: 0}
     defaultState: 1
   opacity:
+    overrideState: 0
+    value: 1
+--- !u!114 &7246491517261385017
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 556797029e73b2347956b6579e77e05b, type: 3}
+  m_Name: DepthOfField
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  focusDistance:
+    overrideState: 1
+    value: 7
+  aperture:
+    overrideState: 1
+    value: 5.3
+  focalLength:
+    overrideState: 1
+    value: 62
+  kernelSize:
     overrideState: 0
     value: 1
