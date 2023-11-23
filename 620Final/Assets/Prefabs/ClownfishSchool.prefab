@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   i: 0
   fish: {fileID: 6068956163469669713, guid: 0d54c77ffe1fc45dabf4acf140d5985a, type: 3}
+  player: {fileID: 0}
