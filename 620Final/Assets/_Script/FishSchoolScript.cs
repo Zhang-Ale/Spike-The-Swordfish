@@ -4,22 +4,18 @@ using UnityEngine;
 
 public class FishSchoolScript : MonoBehaviour
 {
-    public static List<GameObject> goalList = new List<GameObject>();
-    const int avgNumFishInSchool = 8; //Average school size
-    const int schoolVariance = 4; //A school can have the average plus or minus this number of fish
-    const float xOffsetMax = 2f;
-    const float yOffsetMax = 1f;
-    const float zOffsetMax = 3f;
+    public static List<GameObject> goalList = new List<GameObject>(); //List of invisible goals
+    const int avgNumFishInSchool = 8, schoolVariance = 4; //Average school size; a school can have the average plus or minus this number of fish
+    const float xOffsetMax = 2f, yOffsetMax = 1f, zOffsetMax = 3f;
+    const float speed = 10f, fleeSpeed = 20f, fleeRadius = 30f;
+
+    const float xMin = -10f, xMax = 10f, yMax = 5f, zMax = 2000f; //Level dimensions, allowing for a little extra room for the fish
     [SerializeField] int i;
     [SerializeField] Vector3 goal;
     Vector3 vector;
-    const float speed = 10f;
-    const float fleeSpeed = 20f;
-    const float fleeRadius = 30f;
     public GameObject fish;
     public GameObject player;
     GameObject newFish;
-    const float xMin = -10f, xMax = 10f, yMax = 5f, zMax = 2000f;
 
     void Start()
     {
