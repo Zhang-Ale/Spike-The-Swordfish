@@ -6,17 +6,20 @@ public class FishSchoolScript : MonoBehaviour
 {
     public static List<GameObject> goalList = new List<GameObject>();
     const int avgNumFishInSchool = 8; //Average school size
-    const int schoolVariance = 3; //A school can have the average plus or minus this number of fish
+    const int schoolVariance = 4; //A school can have the average plus or minus this number of fish
     const float xOffsetMax = 2f;
     const float yOffsetMax = 1f;
     const float zOffsetMax = 3f;
     [SerializeField] int i;
+    [SerializeField] Vector3 goal;
+    Vector3 vector;
     const float speed = 10f;
-    const float fleeRadius = 5f;
-    Vector3 targetDirection, vector;
+    const float fleeSpeed = 20f;
+    const float fleeRadius = 30f;
     public GameObject fish;
     public GameObject player;
     GameObject newFish;
+    const float xMin = -10f, xMax = 10f, yMax = 5f, zMax = 2000f;
 
     void Start()
     {
@@ -31,8 +34,8 @@ public class FishSchoolScript : MonoBehaviour
             newFish.transform.SetParent(this.transform);
         }
         i = Random.Range(0, goalList.Count);
-        targetDirection = goalList[i].transform.position - this.transform.position;
-        this.transform.LookAt(targetDirection);
+        goal = goalList[i].transform.position;
+        this.transform.LookAt(goalList[i].transform);
     }
 
     void Update()
@@ -40,21 +43,33 @@ public class FishSchoolScript : MonoBehaviour
         if(Vector3.Distance(this.transform.position, player.transform.position) < fleeRadius) //Run away from player
         {
             Vector3 fleeDirection = (this.transform.position - player.transform.position).normalized;
-            this.transform.position = Vector3.MoveTowards(this.transform.position, fleeDirection * fleeRadius,
-                speed * Time.deltaTime);
-            this.transform.LookAt(fleeDirection);
+
+            Vector3 fleePoint = this.transform.position + fleeDirection * fleeRadius;
+            if(fleePoint.x < xMin)
+                fleePoint.x = xMin;
+            else if(fleePoint.x > xMax)
+                fleePoint.x = xMax;
+            if(fleePoint.y < 0f)
+                fleePoint.y = 0f;
+            else if(fleePoint.y > yMax)
+                fleePoint.y = yMax;
+            
+            this.transform.position = Vector3.MoveTowards(this.transform.position, fleePoint,
+                fleeSpeed * Time.deltaTime);
+            this.transform.LookAt(fleePoint);
         }
         else if(Vector3.Distance(goalList[i].transform.position, this.transform.position) < 1) //Switch goals if close to a goal
         {
+            //Debug.Log("Switching directions.");
             i = Random.Range(0, goalList.Count);
-            targetDirection = (goalList[i].transform.position - this.transform.position).normalized;
-            this.transform.LookAt(targetDirection);
+            goal = goalList[i].transform.position;
+            this.transform.LookAt(goalList[i].transform);
         }
         else
         {
             this.transform.position = Vector3.MoveTowards(this.transform.position, goalList[i].transform.position,
                 speed * Time.deltaTime);
-            this.transform.LookAt(targetDirection);
+            this.transform.LookAt(goalList[i].transform);
         }
     }
 }
