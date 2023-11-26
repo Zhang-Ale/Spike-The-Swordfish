@@ -9,6 +9,7 @@ public class WaterFloatForVolume : MonoBehaviour
     public float density = 1f;
     public float volume;
     public float underWaterDrag = 3f;
+    [Header("Increase the float below if the Scale is bigger")]
     public float underWaterAngularDrag = 1f;
     public float airDrag = 0f;
     public float airAngularDrag = 0.05f;
