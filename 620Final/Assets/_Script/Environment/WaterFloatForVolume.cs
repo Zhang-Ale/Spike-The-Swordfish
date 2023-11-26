@@ -121,7 +121,6 @@ public class WaterFloatForVolume : MonoBehaviour
         }
 
         float volume = (float)pointInside / (sampleCount * sampleCount * sampleCount) * (x_length * y_length * z_length);
-        Debug.Log("Volume: " + volume);
         return volume; 
     }
 }

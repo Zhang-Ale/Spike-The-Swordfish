@@ -4,25 +4,28 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    Transform t; 
+    Transform t;
     Rigidbody rb;
+    public static bool inWater;
+    public static bool isSwimming;
+    public static bool isPoisoned;
+    public LayerMask waterMask; 
     public float forwardForce;
     public float sensitivity = 1;
     float rotationX, rotationY;
     public float rotationMin, rotationMax;
-    private float lateralSpeed = 0.25f;
     [Header("Player Movement")]
     public float speed = 1;
-    float moveX, moveY, moveZ, speedUp; 
-
-    public GameObject winText, lastObstacle;
+    float moveX, moveY, moveZ, speedUp;
     public bool changeMoveMode;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        t = this.transform; 
+        t = this.transform;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        inWater = false;
     }
 
     private void Update()
@@ -32,9 +35,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void FixedUpdate()
     {
+        SwimmingOrFloating();
         if (changeMoveMode)
         {
-            MoveForward();     
+            MoveForward();
             WASDMove();
         }
         else
@@ -42,11 +46,41 @@ public class PlayerMovement : MonoBehaviour
             Move();
             speedUp = Input.GetAxis("SpeedUp");
         }
+        Debug.Log("isSwimming is" + isSwimming);
+        Debug.Log("inWater is" + inWater);
+    }
+
+    void SwitchMovement()
+    {
+        inWater = !inWater;
+        rb.useGravity = !rb.useGravity;
+    }
+
+    void SwimmingOrFloating()
+    {
+        bool swimCheck = false;
+        if (inWater)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(new Vector3(t.position.x, t.position.y + 0.5f, t.position.z), Vector3.down, out hit, Mathf.Infinity, waterMask))
+            {
+                if (hit.distance < 0.1f)
+                {
+                    //the player is under water surface
+                    swimCheck = true;
+                }
+            }
+            else
+            {
+                swimCheck = false;
+            }
+            isSwimming = swimCheck; 
+        }
     }
 
     private void MoveForward()
     {
-        rb.AddForce(Input.GetAxis("Forward") * lateralSpeed, Input.GetAxis("Forward") * lateralSpeed,
+        rb.AddForce(Input.GetAxis("Forward") * 0.25f, Input.GetAxis("Forward") * 0.25f,
             forwardForce * Time.deltaTime);
         rb.constraints = RigidbodyConstraints.FreezeRotationX;
         rb.constraints = RigidbodyConstraints.FreezeRotationY;
@@ -57,8 +91,8 @@ public class PlayerMovement : MonoBehaviour
     {
         rotationX += Input.GetAxis("Mouse X") * sensitivity;
         rotationY += Input.GetAxis("Mouse Y") * sensitivity;
-        rotationY = Mathf.Clamp(rotationY, rotationMin, rotationMax); 
-        t.localRotation = Quaternion.Euler(-rotationY, rotationX, 0); 
+        rotationY = Mathf.Clamp(rotationY, rotationMin, rotationMax);
+        t.localRotation = Quaternion.Euler(-rotationY, rotationX, 0);
     }
 
     private void Move()
@@ -67,8 +101,26 @@ public class PlayerMovement : MonoBehaviour
         moveX = Input.GetAxis("Horizontal");
         moveY = Input.GetAxis("Vertical");
         moveZ = Input.GetAxis("Forward");
-        t.Translate(new Vector3(moveX, 0, moveZ) * Time.deltaTime * speed);
-        t.Translate(new Vector3(0, moveY, 0) * Time.deltaTime * speed, Space.World);         
+        if (!inWater)
+        {
+            rb.mass = 2f;
+        }
+        else
+        {
+            rb.mass = 0.7f;
+            if (isSwimming)
+            {
+                moveY = Mathf.Min(moveY, 0);
+                Vector3 clampedDirection = t.TransformDirection(new Vector3(moveX, moveY, moveZ));
+                clampedDirection = new Vector3(clampedDirection.x, Mathf.Min(clampedDirection.y, 0), clampedDirection.z);
+                t.Translate(clampedDirection * Time.deltaTime * speed, Space.World);
+            }
+            else
+            {
+                t.Translate(new Vector3(moveX, 0, moveZ) * Time.deltaTime * speed);
+                t.Translate(new Vector3(0, moveY, 0) * Time.deltaTime * speed, Space.World);
+            }
+        }
     }
 
     private void WASDMove()
@@ -77,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(20 * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
-         if (Input.GetKey("a"))
+        if (Input.GetKey("a"))
         {
             rb.AddForce(-20 * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
@@ -85,13 +137,6 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey("s")) { rb.AddForce(0, -20, 0); }
     }
 
-    void OnCollisionEnter(Collision collisionInfo)
-    {
-        if (collisionInfo.collider.tag == "Obstacle")
-        {
-            this.enabled = false;
-        }
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Garbage")
@@ -99,9 +144,19 @@ public class PlayerMovement : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-        if (other.gameObject == lastObstacle)
+        if (other.gameObject.name == "Underwater")
         {
-            winText.SetActive(true);
+            UnderwaterEffect.Instance.effectActivate = true;
+            SwitchMovement();
+        }
+
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "Underwater")
+        {
+            UnderwaterEffect.Instance.effectActivate = false;
+            SwitchMovement();
         }
     }
 }

@@ -4,7 +4,19 @@ using UnityEngine;
 
 public class UnderwaterEffect : MonoBehaviour
 {
-    public bool effectActivate; 
+    public static UnderwaterEffect Instance { get; private set; }
+    public bool effectActivate;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
