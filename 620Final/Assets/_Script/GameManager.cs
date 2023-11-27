@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public bool gameIsPaused;
+    public GameObject pauseMenu; 
     Scene currentScene; 
     private void Awake()
     {
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            pauseMenu.SetActive(true);
             //etc
         }
         else
@@ -62,6 +64,7 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            pauseMenu.SetActive(false);
             //etc
         }
     }

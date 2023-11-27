@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     public static bool inWater;
     public static bool isSwimming;
+    public static bool isSpeeding;
     public static bool isPoisoned;
     public LayerMask waterMask; 
     public float forwardForce;
@@ -16,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public float rotationMin, rotationMax;
     [Header("Player Movement")]
     public float speed = 1;
-    float moveX, moveY, moveZ, speedUp;
+    [SerializeField]float moveX, moveY, moveZ;
     public bool changeMoveMode;
 
     private void Start()
@@ -44,16 +45,27 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             Move();
-            speedUp = Input.GetAxis("SpeedUp");
+            SpeedUp();
+            Debug.Log("isSpeeding = " + isSpeeding);
         }
-        Debug.Log("isSwimming is" + isSwimming);
-        Debug.Log("inWater is" + inWater);
     }
 
     void SwitchMovement()
     {
         inWater = !inWater;
         rb.useGravity = !rb.useGravity;
+    }
+
+    void SpeedUp()
+    {
+        if (Input.GetButton("SpeedUp"))
+        {
+            isSpeeding = true;
+        }
+        if (Input.GetButtonUp("SpeedUp"))
+        {
+            isSpeeding = false;
+        }
     }
 
     void SwimmingOrFloating()
@@ -142,6 +154,13 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "Garbage")
         {
             Destroy(other.gameObject);
+            isPoisoned = true;
+        }
+
+        if(other.gameObject.tag == "Heal")
+        {
+            Destroy(other.gameObject);
+            isPoisoned = false;
         }
 
         if (other.gameObject.name == "Underwater")
