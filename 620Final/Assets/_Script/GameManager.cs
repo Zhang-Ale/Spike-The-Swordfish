@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
     public void ResumeGame()
     {
         gameIsPaused = false;
+        pauseMenu.SetActive(false);
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

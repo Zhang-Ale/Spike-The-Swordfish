@@ -19,6 +19,9 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 1;
     [SerializeField]float moveX, moveY, moveZ;
     public bool changeMoveMode;
+    public Animator anim;
+    bool canAttack;
+    bool swimFast; 
 
     private void Start()
     {
@@ -37,6 +40,11 @@ public class PlayerMovement : MonoBehaviour
     public void FixedUpdate()
     {
         SwimmingOrFloating();
+        if (Input.GetButtonDown("Attack") && canAttack)
+        {
+            Attack();
+        }
+
         if (changeMoveMode)
         {
             MoveForward();
@@ -61,7 +69,18 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButton("SpeedUp"))
         {
             isSpeeding = true;
+            anim.SetTrigger("SuddenSpeedUp");
+
+            //calculate amount of time pressing the button to set swimFast true or false
+            if (swimFast)
+            {
+                anim.SetBool("SwimFast", true);
+            }
+            else {
+                anim.SetBool("SwimFast", false);
+            }           
         }
+
         if (Input.GetButtonUp("SpeedUp"))
         {
             isSpeeding = false;
@@ -78,7 +97,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (hit.distance < 0.1f)
                 {
-                    //the player is under water surface
                     swimCheck = true;
                 }
             }
@@ -147,6 +165,18 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKey("w")) { rb.AddForce(0, 10, 0); }
         if (Input.GetKey("s")) { rb.AddForce(0, -20, 0); }
+    }
+
+    private void Attack()
+    {
+        anim.SetTrigger("Attack");
+        canAttack = false;
+        //calculate time for canAttack to turn back to true (GhostBoy)
+    }
+
+    public void Death()
+    {
+        anim.SetTrigger("Dead");
     }
 
     private void OnTriggerEnter(Collider other)

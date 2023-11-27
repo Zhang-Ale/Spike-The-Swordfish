@@ -14,7 +14,8 @@ public class PlayerStat : MonoBehaviour
     bool poisonedCheck;
     bool speedingCheck; 
     public List<Slider> statBars;
-    public List<TextMeshProUGUI> statNums; 
+    public List<TextMeshProUGUI> statNums;
+    public PlayerMovement PM;
 
     void Start()
     {
@@ -59,6 +60,11 @@ public class PlayerStat : MonoBehaviour
         {
             statBars[i].value = currentStats[i];
             statNums[i].text = currentStats[i].ToString() + "/100";
+        }
+
+        if(statBars[0].value == 0)
+        {
+            PM.Death();
         }
     }
 
