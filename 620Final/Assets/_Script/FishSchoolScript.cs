@@ -8,7 +8,6 @@ public class FishSchoolScript : MonoBehaviour
     const int avgNumFishInSchool = 8, schoolVariance = 4; //Average school size; a school can have the average plus or minus this number of fish
     const float xOffsetMax = 2f, yOffsetMax = 1f, zOffsetMax = 3f;
     const float speed = 10f, fleeSpeed = 20f, fleeRadius = 30f;
-
     const float xMin = -10f, xMax = 10f, yMax = 5f, zMax = 2000f; //Level dimensions, allowing for a little extra room for the fish
     [SerializeField] int i;
     [SerializeField] Vector3 goal;
