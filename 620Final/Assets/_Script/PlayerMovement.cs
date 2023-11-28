@@ -12,16 +12,25 @@ public class PlayerMovement : MonoBehaviour
     public static bool isPoisoned;
     public LayerMask waterMask; 
     public float forwardForce;
-    public float sensitivity = 1;
+    public float sensitivity = 1f;
     float rotationX, rotationY;
     public float rotationMin, rotationMax;
     [Header("Player Movement")]
-    public float speed = 1;
+    public float speed = 1f;
     [SerializeField]float moveX, moveY, moveZ;
+    Vector3 clampedDirection;
+    public float RunMultiplier = 2f; 
     public bool changeMoveMode;
-    public Animator anim;
-    bool canAttack;
-    bool swimFast; 
+    Animator anim;
+    float holdTime; 
+    public float holdLength = 2f; 
+    bool isHoldActive = false;
+    public float attackRate = 1.5f;
+    float nextAttackTime = 0f;
+    public Transform attackHitBox;
+    public float attackRange = 1f;
+    public LayerMask enemyLayers;
+    public int attackDamage = 10;
 
     private void Start()
     {
@@ -30,20 +39,25 @@ public class PlayerMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         inWater = false;
+        anim = transform.GetChild(0).GetComponent<Animator>();
     }
 
     private void Update()
     {
         LookAround();
+        if (Time.time >= nextAttackTime)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Attack();
+                nextAttackTime = Time.time + 1f / attackRate;
+            }
+        }
     }
 
     public void FixedUpdate()
     {
         SwimmingOrFloating();
-        if (Input.GetButtonDown("Attack") && canAttack)
-        {
-            Attack();
-        }
 
         if (changeMoveMode)
         {
@@ -53,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             Move();
-            SpeedUp();
             Debug.Log("isSpeeding = " + isSpeeding);
         }
     }
@@ -66,25 +79,37 @@ public class PlayerMovement : MonoBehaviour
 
     void SpeedUp()
     {
-        if (Input.GetButton("SpeedUp"))
+        if (Input.GetButtonDown("SpeedUp") && !isHoldActive)
         {
             isSpeeding = true;
             anim.SetTrigger("SuddenSpeedUp");
+            StartCoroutine("StartCounting");
+            //this code below is not working!!
+            t.Translate(new Vector3(moveX, 0, moveZ) * Time.deltaTime * RunMultiplier, Space.World); 
+        }
 
-            //calculate amount of time pressing the button to set swimFast true or false
-            if (swimFast)
-            {
-                anim.SetBool("SwimFast", true);
-            }
-            else {
-                anim.SetBool("SwimFast", false);
-            }           
+        if (isHoldActive && holdTime >= holdLength)
+        {
+            anim.SetBool("SwimFast", true);
+            StopCoroutine("StartCounting");
+            isHoldActive = false;
         }
 
         if (Input.GetButtonUp("SpeedUp"))
         {
+            anim.SetBool("SwimFast", false);
+            StopCoroutine("StartCounting");
+            isHoldActive = false;
             isSpeeding = false;
         }
+    }
+    IEnumerator StartCounting()
+    {
+        for (holdTime = 0f; holdTime <= holdLength; holdTime += Time.deltaTime)
+        {
+            yield return new WaitForSeconds(Time.deltaTime);     
+        }
+        isHoldActive = true;
     }
 
     void SwimmingOrFloating()
@@ -131,7 +156,7 @@ public class PlayerMovement : MonoBehaviour
         moveX = Input.GetAxis("Horizontal");
         moveY = Input.GetAxis("Vertical");
         moveZ = Input.GetAxis("Forward");
-        if (!inWater)
+        if (inWater)
         {
             rb.mass = 2f;
         }
@@ -141,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
             if (isSwimming)
             {
                 moveY = Mathf.Min(moveY, 0);
-                Vector3 clampedDirection = t.TransformDirection(new Vector3(moveX, moveY, moveZ));
+                clampedDirection = t.TransformDirection(new Vector3(moveX, moveY, moveZ));
                 clampedDirection = new Vector3(clampedDirection.x, Mathf.Min(clampedDirection.y, 0), clampedDirection.z);
                 t.Translate(clampedDirection * Time.deltaTime * speed, Space.World);
             }
@@ -151,6 +176,8 @@ public class PlayerMovement : MonoBehaviour
                 t.Translate(new Vector3(0, moveY, 0) * Time.deltaTime * speed, Space.World);
             }
         }
+
+        SpeedUp();
     }
 
     private void WASDMove()
@@ -167,11 +194,15 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey("s")) { rb.AddForce(0, -20, 0); }
     }
 
-    private void Attack()
+    void Attack()
     {
         anim.SetTrigger("Attack");
-        canAttack = false;
-        //calculate time for canAttack to turn back to true (GhostBoy)
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackHitBox.position, attackRange, enemyLayers);
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            var damageable = enemy.GetComponent<IDamageable>();
+            damageable.TakeDamage(attackDamage);
+        }
     }
 
     public void Death()

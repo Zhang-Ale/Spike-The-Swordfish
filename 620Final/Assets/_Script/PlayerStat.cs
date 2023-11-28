@@ -15,10 +15,11 @@ public class PlayerStat : MonoBehaviour
     bool speedingCheck; 
     public List<Slider> statBars;
     public List<TextMeshProUGUI> statNums;
-    public PlayerMovement PM;
+    PlayerMovement PM;
 
     void Start()
     {
+        PM = GetComponent<PlayerMovement>();
         currentStats = new List<int>(maxStats);
         healthCo = StartCoroutine(DecreaseStats(0, 3, 0));
         staminaDeCo = StartCoroutine(DecreaseStats(1, 1, 0));
@@ -28,7 +29,6 @@ public class PlayerStat : MonoBehaviour
             statBars[i].maxValue = maxStats[i];
         }
     }
-
     void Update()
     {
         if (!PlayerMovement.isPoisoned && poisonedCheck && healthCo!=null)
