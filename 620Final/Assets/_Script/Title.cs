@@ -7,7 +7,8 @@ public class Title : MonoBehaviour
     public GameObject credits;
     public GameObject cancelCredits;
     public GameObject openCredits;
-    public GameObject options; 
+    public GameObject options;
+    public GameObject controls; 
     public void StartGame()
     {
         GameManager.instance.LoadNewGame();
@@ -15,7 +16,9 @@ public class Title : MonoBehaviour
 
     public void LoadGame()
     {
-
+        options.SetActive(false);
+        controls.SetActive(true);
+        cancelCredits.SetActive(true);
     }
 
     public void Credits()
@@ -28,6 +31,7 @@ public class Title : MonoBehaviour
     public void CloseCredits()
     {
         credits.SetActive(false);
+        controls.SetActive(false);
         cancelCredits.SetActive(false);
         options.SetActive(true);
     }

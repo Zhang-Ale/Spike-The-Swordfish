@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public float rotationMin, rotationMax;
     [Header("Player Movement")]
     public float speed = 1f;
+    float currentSpeed; 
     [SerializeField]float moveX, moveY, moveZ;
     Vector3 clampedDirection;
     public float RunMultiplier = 2f; 
@@ -31,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     public float attackRange = 1f;
     public LayerMask enemyLayers;
     public int attackDamage = 10;
-
+    GameObject fishModel; 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -40,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
         Cursor.visible = false;
         inWater = false;
         anim = transform.GetChild(0).GetComponent<Animator>();
+        fishModel = transform.GetChild(0).GetComponent<GameObject>();
+        currentSpeed = speed; 
     }
 
     private void Update()
@@ -66,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            SpeedUp();
             Move();
             Debug.Log("isSpeeding = " + isSpeeding);
         }
@@ -84,12 +88,14 @@ public class PlayerMovement : MonoBehaviour
             isSpeeding = true;
             anim.SetTrigger("SuddenSpeedUp");
             StartCoroutine("StartCounting");
-            //this code below is not working!!
-            t.Translate(new Vector3(moveX, 0, moveZ) * Time.deltaTime * RunMultiplier, Space.World); 
+            speed = 50f; 
+            StartCoroutine("Sprint");
         }
 
         if (isHoldActive && holdTime >= holdLength)
         {
+            speed = 15f;
+            currentSpeed = speed; 
             anim.SetBool("SwimFast", true);
             StopCoroutine("StartCounting");
             isHoldActive = false;
@@ -99,10 +105,22 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetBool("SwimFast", false);
             StopCoroutine("StartCounting");
+            speed = 5f;
+            currentSpeed = speed;
             isHoldActive = false;
             isSpeeding = false;
         }
     }
+
+    IEnumerator Sprint()
+    {
+        while(speed > currentSpeed)
+        {
+            speed -= 2f;
+            yield return new WaitForSeconds(.05f);
+        }
+    }
+
     IEnumerator StartCounting()
     {
         for (holdTime = 0f; holdTime <= holdLength; holdTime += Time.deltaTime)
@@ -186,7 +204,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        SpeedUp();
     }
 
     private void WASDMove()
@@ -239,6 +256,13 @@ public class PlayerMovement : MonoBehaviour
             SwitchMovement();
         }
 
+        if (other.gameObject.tag == "Ring")
+        {
+            //sudden AddForce to the rigidbody
+            //fishModel.transform.Rotate(Vector3.forward * 360 * Time.deltaTime);
+            //rotate the fishModel.rotation
+            //enable a sprint particle system
+        }
     }
     private void OnTriggerExit(Collider other)
     {
