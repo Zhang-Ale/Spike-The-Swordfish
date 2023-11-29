@@ -155,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
         rb.constraints = RigidbodyConstraints.None;
         moveX = Input.GetAxis("Horizontal");
         moveY = Input.GetAxis("Vertical");
-        moveZ = Input.GetAxis("Forward");
+        moveZ = Input.GetAxis("Forward");     
         if (inWater)
         {
             rb.mass = 2f;
@@ -174,6 +174,15 @@ public class PlayerMovement : MonoBehaviour
             {
                 t.Translate(new Vector3(moveX, 0, moveZ) * Time.deltaTime * speed);
                 t.Translate(new Vector3(0, moveY, 0) * Time.deltaTime * speed, Space.World);
+            }
+
+            if(Input.GetButton("Horizontal") || Input.GetButton("Forward") || Input.GetButton("Vertical"))
+            {
+                anim.SetBool("Swim", true);
+            }
+            else
+            {
+                anim.SetBool("Swim", false);
             }
         }
 
