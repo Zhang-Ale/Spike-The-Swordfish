@@ -6,6 +6,7 @@ public class GarbageMovement : Enemy
 {
     public float Interpolator;
     public Vector3 TargetPosition;
+    //public static ObjectPooler op; 
     
     void Update()
     {
@@ -22,6 +23,9 @@ public class GarbageMovement : Enemy
 
     public override void TakeDamage(float damage)
     {
+        /*ParticleSystem particle = op.GetParticle();
+        particle.transform.position = transform.position;
+        particle.Play();*/
         base.TakeDamage(damage);
     }
 }
