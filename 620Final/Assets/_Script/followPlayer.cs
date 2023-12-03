@@ -2,10 +2,11 @@
 
 public class followPlayer : MonoBehaviour
 {
-    public Transform cameraPosition;
+    public Transform followPosition;
 
     void FixedUpdate()
     {
-        transform.position = cameraPosition.position;
+        transform.position = followPosition.position;
+        transform.rotation = followPosition.rotation;
     }
 }

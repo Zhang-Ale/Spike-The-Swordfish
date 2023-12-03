@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening; 
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public static bool isSwimming;
     public static bool isSpeeding;
     public static bool isPoisoned;
+    public static bool isHealed;
     public LayerMask waterMask; 
     public float forwardForce;
     public float sensitivity = 1f;
@@ -26,13 +28,16 @@ public class PlayerMovement : MonoBehaviour
     float holdTime; 
     public float holdLength = 2f; 
     bool isHoldActive = false;
+    [SerializeField] float hold;
+    [SerializeField] bool canSwimFast; 
     public float attackRate = 1.5f;
     float nextAttackTime = 0f;
     public Transform attackHitBox;
     public float attackRange = 1f;
     public LayerMask enemyLayers;
     public int attackDamage = 10;
-    GameObject fishModel; 
+    GameObject fishModel;
+    public SkinnedMeshRenderer MR;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -42,7 +47,8 @@ public class PlayerMovement : MonoBehaviour
         inWater = false;
         anim = transform.GetChild(0).GetComponent<Animator>();
         fishModel = transform.GetChild(0).GetComponent<GameObject>();
-        currentSpeed = speed; 
+        currentSpeed = speed;
+        hold = 100f;
     }
 
     private void Update()
@@ -55,6 +61,14 @@ public class PlayerMovement : MonoBehaviour
                 Attack();
                 nextAttackTime = Time.time + 1f / attackRate;
             }
+        }
+
+        if (hold >= 0f){
+            canSwimFast = true;
+        }
+        if (hold == 0f)
+        {
+            canSwimFast = false;
         }
     }
 
@@ -71,8 +85,50 @@ public class PlayerMovement : MonoBehaviour
         {
             SpeedUp();
             Move();
-            Debug.Log("isSpeeding = " + isSpeeding);
         }
+
+        if (isHealed)
+        {
+            StartCoroutine(Healed());
+        }
+    }
+
+    IEnumerator IncreaseHold(float amount)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            if (hold <= 95f)
+            {
+                hold = Mathf.Max(hold + amount, 0);
+            }
+        }
+    }
+
+    IEnumerator DecreaseHold(float amount)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            if (hold >= 0f)
+            {
+                hold = Mathf.Max(hold - amount, 0);
+            }
+        }
+    }
+
+    IEnumerator Poisoned()
+    {
+        MR.materials[1].DOColor(new Color(0.73f, 0f, 0.91f, 1f), 2);
+        yield return new WaitForSeconds(10.5f);
+        MR.materials[1].DOColor(new Color(0.11f, 0.52f, 0.62f, 1f), 2);
+        isPoisoned = false;
+    }
+
+    IEnumerator Healed()
+    {
+        yield return null; 
+        isHealed = false;
     }
 
     void SwitchMovement()
@@ -83,30 +139,37 @@ public class PlayerMovement : MonoBehaviour
 
     void SpeedUp()
     {
-        if (Input.GetButtonDown("SpeedUp") && !isHoldActive)
+        if (canSwimFast)
         {
-            isSpeeding = true;
-            anim.SetTrigger("SuddenSpeedUp");
-            StartCoroutine("StartCounting");
-            speed = 50f; 
-            StartCoroutine("Sprint");
+            if (Input.GetButtonDown("SpeedUp") && !isHoldActive)
+            {
+                isSpeeding = true;
+                StopCoroutine(IncreaseHold(2.5f));
+                anim.SetTrigger("SuddenSpeedUp");
+                StartCoroutine("StartCounting");
+                StartCoroutine(DecreaseHold(2.5f));
+                speed = 60f;
+                StartCoroutine("Sprint");
+            }
+            if (isHoldActive && holdTime >= holdLength)
+            {
+                speed = 20f;
+                currentSpeed = speed;
+                anim.SetBool("SwimFast", true);
+                StopCoroutine("StartCounting");
+                isHoldActive = false;
+            }
         }
-
-        if (isHoldActive && holdTime >= holdLength)
-        {
-            speed = 15f;
-            currentSpeed = speed; 
-            anim.SetBool("SwimFast", true);
-            StopCoroutine("StartCounting");
-            isHoldActive = false;
-        }
-
+        
         if (Input.GetButtonUp("SpeedUp"))
         {
+            StopCoroutine(DecreaseHold(2.5f));
             anim.SetBool("SwimFast", false);
             StopCoroutine("StartCounting");
+            StartCoroutine(IncreaseHold(2.5f));
             speed = 5f;
             currentSpeed = speed;
+            hold = 100f;
             isHoldActive = false;
             isSpeeding = false;
         }
@@ -174,7 +237,7 @@ public class PlayerMovement : MonoBehaviour
         moveX = Input.GetAxis("Horizontal");
         moveY = Input.GetAxis("Vertical");
         moveZ = Input.GetAxis("Forward");     
-        if (inWater)
+        if (!inWater)
         {
             rb.mass = 2f;
         }
@@ -203,7 +266,6 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("Swim", false);
             }
         }
-
     }
 
     private void WASDMove()
@@ -223,8 +285,8 @@ public class PlayerMovement : MonoBehaviour
     void Attack()
     {
         anim.SetTrigger("Attack");
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackHitBox.position, attackRange, enemyLayers);
-        foreach (Collider2D enemy in hitEnemies)
+        Collider[] hitEnemies = Physics.OverlapSphere(attackHitBox.position, attackRange, enemyLayers);
+        foreach (Collider enemy in hitEnemies)
         {
             var damageable = enemy.GetComponent<IDamageable>();
             damageable.TakeDamage(attackDamage);
@@ -240,14 +302,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "Garbage")
         {
-            Destroy(other.gameObject);
             isPoisoned = true;
+            StartCoroutine(Poisoned());
         }
 
         if(other.gameObject.tag == "Heal")
         {
             Destroy(other.gameObject);
-            isPoisoned = false;
+            isHealed = true; 
         }
 
         if (other.gameObject.name == "Underwater")

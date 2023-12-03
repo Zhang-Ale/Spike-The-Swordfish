@@ -11,7 +11,8 @@ public class PlayerStat : MonoBehaviour
     Coroutine healthCo;
     Coroutine staminaDeCo;
     Coroutine staminaInCo;
-    bool poisonedCheck;
+    Coroutine poisonedCo; 
+    [SerializeField]bool poisonedCheck;
     bool speedingCheck; 
     public List<Slider> statBars;
     public List<TextMeshProUGUI> statNums;
@@ -24,6 +25,7 @@ public class PlayerStat : MonoBehaviour
         healthCo = StartCoroutine(DecreaseStats(0, 3, 0));
         staminaDeCo = StartCoroutine(DecreaseStats(1, 1, 0));
         staminaInCo = StartCoroutine(IncreaseStats(1, 2, 0));
+        poisonedCo = StartCoroutine(DecreaseStats(2, 1, 0));
         for (int i = 0; i < maxStats.Count; i++)
         {
             statBars[i].maxValue = maxStats[i];
@@ -35,12 +37,22 @@ public class PlayerStat : MonoBehaviour
         {
             poisonedCheck = false;
             StopCoroutine(healthCo);
-            ChangeStat(0, maxStats[0]);
+            StopCoroutine(poisonedCo);
+            statBars[2].GetComponent<CanvasGroup>().alpha = 0f;
         }
+
         if (PlayerMovement.isPoisoned && !poisonedCheck)
         {
             poisonedCheck = true;
-            healthCo = StartCoroutine(DecreaseStats(0, 3, 3)); 
+            ChangeStat(2, maxStats[2]);
+            statBars[2].GetComponent<CanvasGroup>().alpha = 1f;
+            healthCo = StartCoroutine(DecreaseStats(0, 1, 1));
+            poisonedCo = StartCoroutine(DecreaseStats(2, 1, 1));
+        }
+
+        if (PlayerMovement.isHealed)
+        {
+            ChangeStat(0, maxStats[0]);
         }
 
         if (!PlayerMovement.isSpeeding && speedingCheck && staminaDeCo !=null)
@@ -56,13 +68,15 @@ public class PlayerStat : MonoBehaviour
             StopCoroutine(staminaInCo);
         }
 
-        for(int i = 0; i<maxStats.Count; i++)
+        for(int i = 0; i<maxStats.Count-1; i++)
         {
             statBars[i].value = currentStats[i];
             statNums[i].text = currentStats[i].ToString() + "/100";
         }
+        statBars[2].value = currentStats[2];
+        statNums[2].text = currentStats[2].ToString();
 
-        if(statBars[0].value == 0)
+        if (statBars[0].value == 0)
         {
             PM.Death();
         }
@@ -85,7 +99,7 @@ public class PlayerStat : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(interval);
-            if (currentStats[stat] < maxStats[stat] - 5)
+            if (currentStats[stat] <= maxStats[stat] - 5)
             {
                 currentStats[stat] = Mathf.Max(currentStats[stat] + amount, 0);
             }
