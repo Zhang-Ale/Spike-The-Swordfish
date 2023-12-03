@@ -8,6 +8,8 @@ TagManager:
   - FishSchool
   - Fish
   - Ring
+  - Level1
+  - Temp
   layers:
   - Default
   - TransparentFX
