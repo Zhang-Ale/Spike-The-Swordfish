@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     public int attackDamage = 10;
     GameObject fishModel;
     public SkinnedMeshRenderer MR;
+    public bool attacking; 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -98,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1f);
-            if (hold <= 95f)
+            if (hold <= 97.5f)
             {
                 hold = Mathf.Max(hold + amount, 0);
             }
@@ -110,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1f);
-            if (hold >= 0f)
+            if (hold >= 2.5f)
             {
                 hold = Mathf.Max(hold - amount, 0);
             }
@@ -144,10 +145,10 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetButtonDown("SpeedUp") && !isHoldActive)
             {
                 isSpeeding = true;
-                StopCoroutine(IncreaseHold(2.5f));
+                StopAllCoroutines();
                 anim.SetTrigger("SuddenSpeedUp");
                 StartCoroutine("StartCounting");
-                StartCoroutine(DecreaseHold(2.5f));
+                StartCoroutine(DecreaseHold(5f));
                 speed = 60f;
                 StartCoroutine("Sprint");
             }
@@ -163,13 +164,12 @@ public class PlayerMovement : MonoBehaviour
         
         if (Input.GetButtonUp("SpeedUp"))
         {
-            StopCoroutine(DecreaseHold(2.5f));
+            StopAllCoroutines();
             anim.SetBool("SwimFast", false);
             StopCoroutine("StartCounting");
-            StartCoroutine(IncreaseHold(2.5f));
+            StartCoroutine(IncreaseHold(5f));
             speed = 5f;
             currentSpeed = speed;
-            hold = 100f;
             isHoldActive = false;
             isSpeeding = false;
         }
@@ -257,14 +257,17 @@ public class PlayerMovement : MonoBehaviour
                 t.Translate(new Vector3(0, moveY, 0) * Time.deltaTime * speed, Space.World);
             }
 
-            if(Input.GetButton("Horizontal") || Input.GetButton("Forward") || Input.GetButton("Vertical"))
+            if (!attacking)
             {
-                anim.SetBool("Swim", true);
-            }
-            else
-            {
-                anim.SetBool("Swim", false);
-            }
+                if (Input.GetButton("Horizontal") || Input.GetButton("Forward") || Input.GetButton("Vertical"))
+                {
+                    anim.SetBool("Swim", true);
+                }
+                else
+                {
+                    anim.SetBool("Swim", false);
+                }
+            }            
         }
     }
 
@@ -284,12 +287,18 @@ public class PlayerMovement : MonoBehaviour
 
     void Attack()
     {
+        attacking = true; 
         anim.SetTrigger("Attack");
         Collider[] hitEnemies = Physics.OverlapSphere(attackHitBox.position, attackRange, enemyLayers);
         foreach (Collider enemy in hitEnemies)
         {
             var damageable = enemy.GetComponent<IDamageable>();
             damageable.TakeDamage(attackDamage);
+        }
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
+            anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f)
+        {
+            attacking = false;
         }
     }
 
