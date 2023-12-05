@@ -67,7 +67,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 191
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   volumeTrigger: {fileID: 1048606250607687427}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 16
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
   antialiasingMode: 0
@@ -319,7 +319,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
 --- !u!114 &1048606250607687432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,20 +332,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5407baa1f85d54f46b9cc4e2da434baa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poisoned: 0
   waterMask:
     serializedVersion: 2
-    m_Bits: 24
+    m_Bits: 16
   forwardForce: 1000
   sensitivity: 1
   rotationMin: -50
   rotationMax: 50
-  speed: 5
+  speed: 10
   moveX: 0
   moveY: 0
   moveZ: 0
   RunMultiplier: 100
   changeMoveMode: 0
-  holdLength: 0.75
+  holdLength: 0.45
   hold: 0
   canSwimFast: 0
   attackRate: 1.5
@@ -355,7 +356,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   attackDamage: 10
-  MR: {fileID: 0}
+  MR: {fileID: 676784074604262910}
+  attacking: 0
 --- !u!114 &132651113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,6 +380,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  maxXP: 360
+  XPBar: {fileID: 0}
+  xpNum: {fileID: 0}
 --- !u!1 &6125247442278748110
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,7 +393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4551717610714252685}
   m_Layer: 2
-  m_Name: Hitbox
+  m_Name: Hitbox pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -402,7 +407,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6125247442278748110}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.3, z: 2.59}
+  m_LocalPosition: {x: 0, y: -0.3, z: 3.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -420,7 +425,7 @@ GameObject:
   - component: {fileID: 4646563710503774008}
   - component: {fileID: 5831031158918503918}
   m_Layer: 6
-  m_Name: No post Camera
+  m_Name: Player Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -674,30 +679,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4a2c13d445cda4cdab06b20adc156f62, type: 3}
   m_PrefabInstance: {fileID: 1048606250153823083}
   m_PrefabAsset: {fileID: 0}
---- !u!205 &5242142148512671743
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 165520505370146362}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
-  m_Size: 1
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers: []
-  - screenRelativeHeight: 0.3
-    fadeTransitionWidth: 0
-    renderers: []
-  - screenRelativeHeight: 0.1
-    fadeTransitionWidth: 0
-    renderers: []
-  m_Enabled: 1
 --- !u!95 &1048606251234783915
 Animator:
   serializedVersion: 4
@@ -721,5 +702,10 @@ Animator:
 --- !u!4 &650731291046653056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4a2c13d445cda4cdab06b20adc156f62, type: 3}
+  m_PrefabInstance: {fileID: 1048606250153823083}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &676784074604262910 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 570002580130889365, guid: 4a2c13d445cda4cdab06b20adc156f62, type: 3}
   m_PrefabInstance: {fileID: 1048606250153823083}
   m_PrefabAsset: {fileID: 0}

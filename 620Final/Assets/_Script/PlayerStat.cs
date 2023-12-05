@@ -12,11 +12,14 @@ public class PlayerStat : MonoBehaviour
     Coroutine staminaDeCo;
     Coroutine staminaInCo;
     Coroutine poisonedCo; 
-    [SerializeField]bool poisonedCheck;
+    public bool poisonedCheck;
     bool speedingCheck; 
     public List<Slider> statBars;
     public List<TextMeshProUGUI> statNums;
     PlayerMovement PM;
+    public int maxXP;
+    public ProgressBar XPBar;
+    public TextMeshProUGUI xpNum; 
 
     void Start()
     {
@@ -31,6 +34,7 @@ public class PlayerStat : MonoBehaviour
             statBars[i].maxValue = maxStats[i];
         }
     }
+
     void Update()
     {
         if (!PlayerMovement.isPoisoned && poisonedCheck && healthCo!=null)
@@ -115,6 +119,15 @@ public class PlayerStat : MonoBehaviour
         else
         {
             currentStats[stat] = Mathf.Max(currentStats[stat] + refreshAmount, 0);
+        }
+    }
+
+    public void AddXP(int amount)
+    {
+        if(XPBar.current <= maxXP)
+        {
+            XPBar.current += amount;
+            xpNum.text = XPBar.current.ToString() + "/360";
         }
     }
 }

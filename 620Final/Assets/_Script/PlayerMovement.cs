@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public static bool isSpeeding;
     public static bool isPoisoned;
     public static bool isHealed;
+    public bool poisoned; 
     public LayerMask waterMask; 
     public float forwardForce;
     public float sensitivity = 1f;
@@ -67,9 +68,16 @@ public class PlayerMovement : MonoBehaviour
         if (hold >= 0f){
             canSwimFast = true;
         }
-        if (hold == 0f)
+        if (hold <= 0f)
         {
             canSwimFast = false;
+        }
+
+        if (poisoned)
+        {
+            StartCoroutine("Poisoned");
+            MR.materials[1].DOColor(new Color(0.73f, 0.3f, 0.91f, 1f), 2); 
+            MR.materials[1].DOColor(new Color(0.11f, 0.52f, 0.62f, 1f), 2);
         }
     }
 
@@ -91,6 +99,16 @@ public class PlayerMovement : MonoBehaviour
         if (isHealed)
         {
             StartCoroutine(Healed());
+        }
+
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
+            anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        {
+            attacking = true;
+        }
+        else
+        {
+            attacking = false;
         }
     }
 
@@ -120,10 +138,10 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator Poisoned()
     {
-        MR.materials[1].DOColor(new Color(0.73f, 0f, 0.91f, 1f), 2);
         yield return new WaitForSeconds(10.5f);
         MR.materials[1].DOColor(new Color(0.11f, 0.52f, 0.62f, 1f), 2);
         isPoisoned = false;
+        poisoned = false; 
     }
 
     IEnumerator Healed()
@@ -161,6 +179,10 @@ public class PlayerMovement : MonoBehaviour
                 isHoldActive = false;
             }
         }
+        else
+        {
+            anim.SetBool("SwimFast", false);
+        }
         
         if (Input.GetButtonUp("SpeedUp"))
         {
@@ -168,7 +190,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("SwimFast", false);
             StopCoroutine("StartCounting");
             StartCoroutine(IncreaseHold(5f));
-            speed = 5f;
+            speed = 10f;
             currentSpeed = speed;
             isHoldActive = false;
             isSpeeding = false;
@@ -237,7 +259,7 @@ public class PlayerMovement : MonoBehaviour
         moveX = Input.GetAxis("Horizontal");
         moveY = Input.GetAxis("Vertical");
         moveZ = Input.GetAxis("Forward");     
-        if (!inWater)
+        if (inWater)
         {
             rb.mass = 2f;
         }
@@ -262,8 +284,7 @@ public class PlayerMovement : MonoBehaviour
                 if (Input.GetButton("Horizontal") || Input.GetButton("Forward") || Input.GetButton("Vertical"))
                 {
                     anim.SetBool("Swim", true);
-                }
-                else
+                }else if((!Input.GetButton("Horizontal") || !Input.GetButton("Forward") || !Input.GetButton("Vertical")))
                 {
                     anim.SetBool("Swim", false);
                 }
@@ -295,11 +316,6 @@ public class PlayerMovement : MonoBehaviour
             var damageable = enemy.GetComponent<IDamageable>();
             damageable.TakeDamage(attackDamage);
         }
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
-            anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f)
-        {
-            attacking = false;
-        }
     }
 
     public void Death()
@@ -312,7 +328,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "Garbage")
         {
             isPoisoned = true;
-            StartCoroutine(Poisoned());
+            poisoned = true; 
         }
 
         if(other.gameObject.tag == "Heal")

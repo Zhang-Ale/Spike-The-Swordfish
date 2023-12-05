@@ -6,9 +6,15 @@ public class GarbageMovement : Enemy
 {
     public float Interpolator;
     public Vector3 TargetPosition;
+    PlayerStat PS; 
     //public static ObjectPooler op; 
-    
-    void Update()
+
+    private void Start()
+    {
+        PS = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStat>();
+    }
+
+    void FixedUpdate()
     {
         transform.position = Vector3.Lerp(transform.position, TargetPosition, Interpolator * Time.deltaTime);
         if(_life <= 0)
@@ -17,7 +23,8 @@ public class GarbageMovement : Enemy
             //1. petroil smoke particles 
             //2. gameobjects of separate garbage pieces 
             //3. trash remainants on the sea bed ground 
-            Destroy(this.gameObject, 0.25f);
+            PS.AddXP(10);
+            Destroy(this.gameObject);
         }
     }
 
