@@ -135,16 +135,13 @@ namespace LowPolyUnderwaterPack
 		private Vector3[] yPositionSingle;
 		private ComputeBuffer buffer;
 		private int bufferGroups;
+		#endregion
 
-        #endregion
+		#region Unity Callbacks
 
-        #region Unity Callbacks
-
-        private void Awake()
+		private void Awake()
 		{
 			// Throws an error if called on project load in edit mode
-			if (Application.isPlaying)
-				underwaterEffect = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<UnderwaterEffect>();
 
 			try
 			{
@@ -158,7 +155,7 @@ namespace LowPolyUnderwaterPack
 		private void Start()
 		{
 			col.isTrigger = true;
-
+			underwaterEffect = GameObject.FindGameObjectWithTag("Respawn").GetComponent<UnderwaterEffect>();
 			// Make sure mesh is generated correctly on start
 			filter.sharedMesh = GenerateMesh();
 			mesh = filter.sharedMesh;
@@ -221,7 +218,7 @@ namespace LowPolyUnderwaterPack
 			mesh = filter.sharedMesh;
         }
 #endif
-
+		
         private void Update()
 		{
 			// Update collider properties. Only y values of collider should be editable to match the mesh size

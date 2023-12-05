@@ -24,7 +24,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI textField;
     public TextMeshProUGUI tipText;
     public CanvasGroup tipCg;
-    public string[] tips; 
+    public string[] tips;
+    bool gameStart;
 
     private void Awake()
     {
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        gameStart = false; 
         currentScene = SceneManager.GetActiveScene();
         sceneName = currentScene.name;
         if (sceneName != "GameplayScene")
@@ -110,9 +112,9 @@ public class GameManager : MonoBehaviour
             bar.current = Mathf.RoundToInt(totalSceneProgress);
             yield return null;
         }
-        
         cg.alpha = 0;
         bar.current = 0;
+        gameStart = true; 
     }
     public int tipCount; 
     IEnumerator GenerateTips()

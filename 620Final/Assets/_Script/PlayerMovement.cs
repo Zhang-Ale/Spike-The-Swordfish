@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     public float RunMultiplier = 2f; 
     public bool changeMoveMode;
     Animator anim;
+    public Animator anim1; 
     float holdTime; 
     public float holdLength = 2f; 
     bool isHoldActive = false;
@@ -39,7 +40,8 @@ public class PlayerMovement : MonoBehaviour
     public int attackDamage = 10;
     GameObject fishModel;
     public SkinnedMeshRenderer MR;
-    public bool attacking; 
+    public bool attacking;
+    public GameObject minimapIcon; 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -75,10 +77,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (poisoned)
         {
+            anim1.SetBool("Poisoned", true);
             StartCoroutine("Poisoned");
-            MR.materials[1].DOColor(new Color(0.73f, 0.3f, 0.91f, 1f), 2); 
-            MR.materials[1].DOColor(new Color(0.11f, 0.52f, 0.62f, 1f), 2);
         }
+        else
+        {
+            anim1.SetBool("Poisoned", false);
+        }
+        minimapIcon.transform.position = new Vector3(transform.position.x, minimapIcon.transform.position.y, transform.position.z);
     }
 
     public void FixedUpdate()
@@ -138,8 +144,9 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator Poisoned()
     {
+        
         yield return new WaitForSeconds(10.5f);
-        MR.materials[1].DOColor(new Color(0.11f, 0.52f, 0.62f, 1f), 2);
+        MR.materials[1].DOColor(new Color(0.2f, 0.4f, 0.62f, 1f), 2);
         isPoisoned = false;
         poisoned = false; 
     }
