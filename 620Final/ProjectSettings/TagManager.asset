@@ -10,6 +10,8 @@ TagManager:
   - Ring
   - Level1
   - Temp
+  - Level2
+  - Level3
   layers:
   - Default
   - TransparentFX
