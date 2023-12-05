@@ -12,6 +12,7 @@ TagManager:
   - Temp
   - Level2
   - Level3
+  - Level4
   layers:
   - Default
   - TransparentFX
