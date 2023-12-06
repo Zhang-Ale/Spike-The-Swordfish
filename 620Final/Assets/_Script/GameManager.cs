@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GenerateTips());
         scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.TITLE));
         scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.GAMEPLAY, LoadSceneMode.Additive));
-        scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.ENDING, LoadSceneMode.Additive));
+        //scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.ENDING, LoadSceneMode.Additive));
 
         StartCoroutine(GetSceneLoadProgress());
         StartCoroutine(GetTotalProgress());
@@ -134,4 +134,5 @@ public class GameManager : MonoBehaviour
             tipCg.alpha = 1f;
         }
     }
+    
 }

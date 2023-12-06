@@ -5,43 +5,46 @@ using DG.Tweening;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Player Status")]
     Transform t;
     Rigidbody rb;
     public static bool inWater;
     public static bool isSwimming;
     public static bool isSpeeding;
     public static bool isPoisoned;
-    public static bool isHealed;
-    public bool poisoned; 
-    public LayerMask waterMask; 
+    public bool poisoned;
+    public bool changeMoveMode;
+    public LayerMask waterMask;
+    [Header("Player Movement")]
     public float forwardForce;
     public float sensitivity = 1f;
     float rotationX, rotationY;
     public float rotationMin, rotationMax;
-    [Header("Player Movement")]
     public float speed = 1f;
     float currentSpeed; 
-    [SerializeField]float moveX, moveY, moveZ;
+    float moveX, moveY, moveZ;
     Vector3 clampedDirection;
     public float RunMultiplier = 2f; 
-    public bool changeMoveMode;
     Animator anim;
     public Animator anim1; 
     float holdTime; 
     public float holdLength = 2f; 
     bool isHoldActive = false;
-    [SerializeField] float hold;
-    [SerializeField] bool canSwimFast; 
-    public float attackRate = 1.5f;
+    float hold;
+    bool canSwimFast;
+    [Header("Player Attack")]
+    float attackRate = 1.5f;
     float nextAttackTime = 0f;
     public Transform attackHitBox;
     public float attackRange = 1f;
     public LayerMask enemyLayers;
     public int attackDamage = 10;
     GameObject fishModel;
+    [Header("Others")]
     public SkinnedMeshRenderer MR;
-    public bool attacking;
-    public GameObject minimapIcon; 
+    bool attacking;
+    public GameObject minimapIcon;
+    public GameObject tip1, tip2; 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -102,11 +105,6 @@ public class PlayerMovement : MonoBehaviour
             Move();
         }
 
-        if (isHealed)
-        {
-            StartCoroutine(Healed());
-        }
-
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
             anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
         {
@@ -144,18 +142,14 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator Poisoned()
     {
-        
+        tip2.SetActive(true);
         yield return new WaitForSeconds(10.5f);
         MR.materials[1].DOColor(new Color(0.2f, 0.4f, 0.62f, 1f), 2);
         isPoisoned = false;
-        poisoned = false; 
+        poisoned = false;
+        tip2.SetActive(false);
     }
 
-    IEnumerator Healed()
-    {
-        yield return null; 
-        isHealed = false;
-    }
 
     void SwitchMovement()
     {
@@ -334,13 +328,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "Garbage")
         {
             isPoisoned = true;
-            poisoned = true; 
-        }
-
-        if(other.gameObject.tag == "Heal")
-        {
-            Destroy(other.gameObject);
-            isHealed = true; 
+            poisoned = true;
         }
 
         if (other.gameObject.name == "Underwater")
@@ -356,6 +344,11 @@ public class PlayerMovement : MonoBehaviour
             //rotate the fishModel.rotation
             //enable a sprint particle system
         }
+
+        if (other.gameObject.tag == "Teleport")
+        {
+            tip1.SetActive(true);
+        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -363,6 +356,11 @@ public class PlayerMovement : MonoBehaviour
         {
             UnderwaterEffect.Instance.effectActivate = false;
             SwitchMovement();
+        }
+
+        if (other.gameObject.tag == "Teleport")
+        {
+            tip1.SetActive(false);
         }
     }
 }
