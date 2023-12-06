@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public float rotationMin, rotationMax;
     public float speed = 1f;
     float currentSpeed; 
-    float moveX, moveY, moveZ;
+    [SerializeField]float moveX, moveY, moveZ;
     Vector3 clampedDirection;
     public float RunMultiplier = 2f; 
     Animator anim;
@@ -252,7 +252,7 @@ public class PlayerMovement : MonoBehaviour
         rotationY = Mathf.Clamp(rotationY, rotationMin, rotationMax);
         t.localRotation = Quaternion.Euler(-rotationY, rotationX, 0);
     }
-
+    public float forceMultiplicator = 100;
     private void Move()
     {
         rb.constraints = RigidbodyConstraints.None;
@@ -275,8 +275,9 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                t.Translate(new Vector3(moveX, 0, moveZ) * Time.deltaTime * speed);
-                t.Translate(new Vector3(0, moveY, 0) * Time.deltaTime * speed, Space.World);
+                //t.Translate(new Vector3(moveX, 0, moveZ) * Time.deltaTime * speed);
+                //t.Translate(new Vector3(0, moveY, 0) * Time.deltaTime * speed, Space.World);
+                rb.AddForce(new Vector3(moveX, moveY, moveZ) * Time.deltaTime * speed * forceMultiplicator, ForceMode.Force);
             }
 
             if (!attacking)
@@ -284,7 +285,8 @@ public class PlayerMovement : MonoBehaviour
                 if (Input.GetButton("Horizontal") || Input.GetButton("Forward") || Input.GetButton("Vertical"))
                 {
                     anim.SetBool("Swim", true);
-                }else if((!Input.GetButton("Horizontal") || !Input.GetButton("Forward") || !Input.GetButton("Vertical")))
+                }
+                else if((!Input.GetButton("Horizontal") || !Input.GetButton("Forward") || !Input.GetButton("Vertical")))
                 {
                     anim.SetBool("Swim", false);
                 }

@@ -79,7 +79,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1.7568628, g: 6.7764707, b: 47.937256, a: 1}
+    - _Color: {r: 3.5137255, g: 13.552941, b: 95.87451, a: 1}
     - _EdgeRange: {r: 2, g: 6, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _PlayerPos: {r: 1, g: 1, b: 1, a: 0}
