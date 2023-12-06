@@ -197,7 +197,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("SwimFast", false);
             StopCoroutine("StartCounting");
             StartCoroutine(IncreaseHold(5f));
-            speed = 10f;
+            speed = 6f;
             currentSpeed = speed;
             isHoldActive = false;
             isSpeeding = false;
@@ -245,8 +245,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveForward()
     {
-        rb.AddForce(Input.GetAxis("Forward") * 0.25f, Input.GetAxis("Forward") * 0.25f,
-            forwardForce * Time.deltaTime);
+        rb.AddForce(Input.GetAxis("Forward") * 0.25f, Input.GetAxis("Forward") * 0.25f, forwardForce);
         rb.constraints = RigidbodyConstraints.FreezeRotationX;
         rb.constraints = RigidbodyConstraints.FreezeRotationY;
         rb.constraints = RigidbodyConstraints.FreezeRotationZ;
@@ -303,14 +302,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey("d"))
         {
-            rb.AddForce(20 * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+            rb.AddForce(30 * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
         if (Input.GetKey("a"))
         {
-            rb.AddForce(-20 * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+            rb.AddForce(-30 * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
-        if (Input.GetKey("w")) { rb.AddForce(0, 10, 0); }
-        if (Input.GetKey("s")) { rb.AddForce(0, -20, 0); }
+        if (Input.GetKey("w")) { rb.AddForce(0, 30 * Time.deltaTime, 0); }
+        if (Input.GetKey("s")) { rb.AddForce(0, -30 * Time.deltaTime, 0); }
     }
 
     void Attack()

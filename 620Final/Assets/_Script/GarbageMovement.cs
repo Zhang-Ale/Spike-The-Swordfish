@@ -7,7 +7,7 @@ public class GarbageMovement : Enemy
     public float Interpolator;
     public Vector3 TargetPosition;
     PlayerStat PS; 
-    //public static ObjectPooler op; 
+    public static ObjectPooler op; 
 
     private void Start()
     {
@@ -30,9 +30,9 @@ public class GarbageMovement : Enemy
 
     public override void TakeDamage(float damage)
     {
-        /*ParticleSystem particle = op.GetParticle();
+        ParticleSystem particle = op.GetParticle();
         particle.transform.position = transform.position;
-        particle.Play();*/
+        particle.Play();
         base.TakeDamage(damage);
     }
 }

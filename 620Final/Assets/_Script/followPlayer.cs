@@ -6,7 +6,7 @@ public class followPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.position = followPosition.position;
-        transform.rotation = followPosition.rotation;
+        followPosition.position = transform.position;
+        followPosition.rotation = transform.rotation;
     }
 }
