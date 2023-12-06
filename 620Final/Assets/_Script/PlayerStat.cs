@@ -54,11 +54,6 @@ public class PlayerStat : MonoBehaviour
             poisonedCo = StartCoroutine(DecreaseStats(2, 1, 1));
         }
 
-        if (PlayerMovement.isHealed)
-        {
-            ChangeStat(0, maxStats[0]);
-        }
-
         if (!PlayerMovement.isSpeeding && speedingCheck && staminaDeCo !=null)
         {
             speedingCheck = false;

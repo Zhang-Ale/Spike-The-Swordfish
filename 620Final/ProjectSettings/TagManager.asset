@@ -14,6 +14,8 @@ TagManager:
   - Level3
   - Level4
   - Teleport
+  - StartTrail
+  - EndTrail
   layers:
   - Default
   - TransparentFX

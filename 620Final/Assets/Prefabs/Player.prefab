@@ -33,7 +33,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4646563710503774008}
-  - {fileID: 1415331060}
   m_Father: {fileID: 1048606250607687427}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -244,81 +243,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &1415331059
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1415331060}
-  - component: {fileID: 1415331062}
-  m_Layer: 2
-  m_Name: Minimap camera
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1415331060
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1415331059}
-  m_LocalRotation: {x: 0.54463905, y: 0, z: 0, w: 0.8386706}
-  m_LocalPosition: {x: 0, y: 22.1, z: -3.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 963194228}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 66, y: 0, z: 0}
---- !u!20 &1415331062
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1415331059}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 1
-  orthographic size: 19
-  m_Depth: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 189
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 8a6794701952698458958f6561b69a76, type: 2}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
 --- !u!1 &1048606250607687433
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,7 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5407baa1f85d54f46b9cc4e2da434baa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poisoned: 0
+  changeMoveMode: 1
   waterMask:
     serializedVersion: 2
     m_Bits: 16
@@ -417,16 +341,9 @@ MonoBehaviour:
   rotationMin: -50
   rotationMax: 50
   speed: 10
-  moveX: 0
-  moveY: 0
-  moveZ: 0
   RunMultiplier: 100
-  changeMoveMode: 1
   anim1: {fileID: 1048606250586414676}
   holdLength: 0.45
-  hold: 0
-  canSwimFast: 0
-  attackRate: 1.5
   attackHitBox: {fileID: 0}
   attackRange: 1
   enemyLayers:
@@ -434,8 +351,10 @@ MonoBehaviour:
     m_Bits: 128
   attackDamage: 10
   MR: {fileID: 676784074604262910}
-  attacking: 0
   minimapIcon: {fileID: 0}
+  tip1: {fileID: 0}
+  tip2: {fileID: 0}
+  tip3: {fileID: 0}
 --- !u!114 &132651113
 MonoBehaviour:
   m_ObjectHideFlags: 0

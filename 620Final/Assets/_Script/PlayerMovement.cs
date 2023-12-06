@@ -4,15 +4,15 @@ using UnityEngine;
 using DG.Tweening; 
 
 public class PlayerMovement : MonoBehaviour
-{
-    [Header("Player Status")]
+{ 
     Transform t;
     Rigidbody rb;
     public static bool inWater;
     public static bool isSwimming;
     public static bool isSpeeding;
     public static bool isPoisoned;
-    public bool poisoned;
+    [Header("Player Status")]
+    bool poisoned;
     public bool changeMoveMode;
     public LayerMask waterMask;
     [Header("Player Movement")]
@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     public SkinnedMeshRenderer MR;
     bool attacking;
     public GameObject minimapIcon;
-    public GameObject tip1, tip2; 
+    public GameObject tip1, tip2, tip3; 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -348,6 +348,15 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "Teleport")
         {
             tip1.SetActive(true);
+        }
+
+        if (other.gameObject.tag == "StartTrail")
+        {
+            tip3.SetActive(true);
+        }
+        if (other.gameObject.tag == "EndTrail")
+        {
+            tip3.SetActive(false);
         }
     }
     private void OnTriggerExit(Collider other)

@@ -14,15 +14,22 @@ public class SceneLoad : MonoBehaviour
                 StartCoroutine(Transition(SceneManager.GetActiveScene().name, tp.destinationTag));
                 break;
             case TransitionPosition.TransitionType.DifferentScene:
-                //SceneManager.LoadSceneAsync("EndingScene");
+                StartCoroutine(Transition(tp.sceneName, tp.destinationTag));
                 break;
         }
     }
 
     IEnumerator Transition(string sceneName, TransitionDestination.DestinationTag destinationTag)
     {
-        player.transform.SetPositionAndRotation(GetDestination(destinationTag).transform.position, GetDestination(destinationTag).transform.rotation);
-        yield return null; 
+        if(SceneManager.GetActiveScene().name != sceneName)
+        {
+            yield return SceneManager.LoadSceneAsync(sceneName);
+        }
+        else
+        {
+            player.transform.SetPositionAndRotation(GetDestination(destinationTag).transform.position, GetDestination(destinationTag).transform.rotation);
+            yield return null;
+        } 
     }
 
     private TransitionDestination GetDestination(TransitionDestination.DestinationTag destinationTag)
