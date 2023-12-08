@@ -40,6 +40,7 @@ public class FishSchoolScript : MonoBehaviour
             Vector3 fleeDirection = (this.transform.position - player.transform.position).normalized;
 
             Vector3 fleePoint = this.transform.position + fleeDirection * fleeRadius;
+            /*
             if(fleePoint.x < xMin)
                 fleePoint.x = xMin;
             else if(fleePoint.x > xMax)
@@ -48,6 +49,7 @@ public class FishSchoolScript : MonoBehaviour
                 fleePoint.y = 0f;
             else if(fleePoint.y > yMax)
                 fleePoint.y = yMax;
+            */
             
             this.transform.position = Vector3.MoveTowards(this.transform.position, fleePoint,
                 fleeSpeed * Time.deltaTime);
