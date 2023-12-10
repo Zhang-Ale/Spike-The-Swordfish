@@ -27,7 +27,10 @@ public class SceneLoad : MonoBehaviour
         }
         else
         {
+            player.transform.GetChild(0).GetComponent<PlayerMovement>().enabled = false;
+            yield return new WaitForSeconds(0.25f);
             player.transform.SetPositionAndRotation(GetDestination(destinationTag).transform.position, GetDestination(destinationTag).transform.rotation);
+            player.transform.GetChild(0).GetComponent<PlayerMovement>().enabled = true;
             yield return null;
         } 
     }

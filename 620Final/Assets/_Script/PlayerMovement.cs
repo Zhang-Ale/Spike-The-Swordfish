@@ -24,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
     float currentSpeed; 
     [SerializeField]float moveX, moveY, moveZ;
     Vector3 clampedDirection;
-    public float RunMultiplier = 2f; 
     Animator anim;
     public Animator anim1; 
     float holdTime; 
@@ -168,12 +167,12 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetTrigger("SuddenSpeedUp");
                 StartCoroutine("StartCounting");
                 StartCoroutine(DecreaseHold(5f));
-                speed = 60f;
+                speed = 40f;
                 StartCoroutine("Sprint");
             }
             if (isHoldActive && holdTime >= holdLength)
             {
-                speed = 20f;
+                speed = 15f;
                 currentSpeed = speed;
                 anim.SetBool("SwimFast", true);
                 StopCoroutine("StartCounting");
@@ -252,6 +251,7 @@ public class PlayerMovement : MonoBehaviour
         rotationY = Mathf.Clamp(rotationY, rotationMin, rotationMax);
         t.localRotation = Quaternion.Euler(-rotationY, rotationX, 0);
     }
+
     public float forceMultiplicator = 100;
     private void Move()
     {
@@ -275,9 +275,9 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                //t.Translate(new Vector3(moveX, 0, moveZ) * Time.deltaTime * speed);
-                //t.Translate(new Vector3(0, moveY, 0) * Time.deltaTime * speed, Space.World);
-                rb.AddForce(new Vector3(moveX, moveY, moveZ) * Time.deltaTime * speed * forceMultiplicator, ForceMode.Force);
+                t.Translate(new Vector3(moveX, 0, moveZ) * Time.deltaTime * speed);
+                t.Translate(new Vector3(0, moveY, 0) * Time.deltaTime * speed, Space.World);
+                //rb.AddForce(new Vector3(moveX, moveY, moveZ) * Time.deltaTime * speed * forceMultiplicator, ForceMode.Force);
             }
 
             if (!attacking)
@@ -356,6 +356,7 @@ public class PlayerMovement : MonoBehaviour
         {
             tip3.SetActive(true);
         }
+
         if (other.gameObject.tag == "EndTrail")
         {
             tip3.SetActive(false);

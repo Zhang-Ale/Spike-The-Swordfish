@@ -9,8 +9,8 @@ public class followPlayer : MonoBehaviour
     {
         if (index == 0)
         {
-            followPosition.position = transform.position;
-            followPosition.rotation = transform.rotation;
+            transform.position = followPosition.position;
+            transform.rotation = followPosition.rotation;
         }
         else
         {

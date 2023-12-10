@@ -72,6 +72,7 @@ public class PlayerStat : MonoBehaviour
             statBars[i].value = currentStats[i];
             statNums[i].text = currentStats[i].ToString() + "/100";
         }
+
         statBars[2].value = currentStats[2];
         statNums[2].text = currentStats[2].ToString();
 

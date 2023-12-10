@@ -13,7 +13,7 @@ public class TransitionPosition : MonoBehaviour
     public string sceneName;
     public TransitionType transitionType;
     public TransitionDestination.DestinationTag destinationTag;
-    private bool canTrans;
+    [SerializeField] private bool canTrans;
 
     private void Update()
     {
