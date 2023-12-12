@@ -20,7 +20,7 @@ WASD to move, left shift to sprint (hold to swim fast), left mouse click to atta
 <br>
 
 **Build download link:** (please download the entire folder named "Build", not just the exe file) <br>
-[**Drive link**](https://drive.google.com/drive/folders/1K2iWBX50QWQQFFWAGYj8B9J0TLRCK3vJ?usp=sharing) <br>
+[**Drive link**](https://drive.google.com/drive/folders/1T5-1QHLdo5BKQHgRX1ycoyQIqgDQebnt?usp=sharing) <br>
 <br>
 
 **Credits:** <br>
