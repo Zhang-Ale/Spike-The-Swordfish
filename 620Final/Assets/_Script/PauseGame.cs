@@ -8,6 +8,8 @@ public class PauseGame : MonoBehaviour
     public bool gameIsPaused;
     public GameObject pauseMenu;
     bool noPause;
+    public PlayerMovement PM;
+    public GameObject deathMenu; 
 
     void FixedUpdate()
     {
@@ -18,6 +20,11 @@ public class PauseGame : MonoBehaviour
         {
             gameIsPaused = !gameIsPaused;
             Pause();
+        }
+
+        if (PM.dead)
+        {
+            deathMenu.SetActive(true); 
         }
     }
 
@@ -52,7 +59,7 @@ public class PauseGame : MonoBehaviour
 
     public void ReturnStartMenu()
     {
-        SceneManager.LoadScene("TitleScene");
+        SceneManager.LoadScene("ManagerScene");
         Time.timeScale = 1;
     }
 

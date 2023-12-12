@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening; 
+using DG.Tweening;
 
 public class PlayerMovement : MonoBehaviour
 { 
@@ -43,7 +43,11 @@ public class PlayerMovement : MonoBehaviour
     public SkinnedMeshRenderer MR;
     bool attacking;
     public GameObject minimapIcon;
-    public GameObject tip1, tip2, tip3; 
+    public GameObject tip1, tip2, tip3;
+    public bool metCurrent;
+    public bool metGarbage;
+    public bool dead; 
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -55,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
         fishModel = transform.GetChild(0).GetComponent<GameObject>();
         currentSpeed = speed;
         hold = 100f;
+        metCurrent = false; 
     }
 
     private void Update()
@@ -323,6 +328,7 @@ public class PlayerMovement : MonoBehaviour
     public void Death()
     {
         anim.SetTrigger("Dead");
+        dead = true; 
     }
 
     private void OnTriggerEnter(Collider other)
@@ -355,13 +361,29 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "StartTrail")
         {
             tip3.SetActive(true);
+            metCurrent = true; 
         }
 
         if (other.gameObject.tag == "EndTrail")
         {
             tip3.SetActive(false);
+            metCurrent = false; 
+        }
+
+        if(other.gameObject.name == "StopTrigGarbageMusic")
+        {
+            metGarbage = false; 
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.name == "TrigGarbageMusic")
+        {
+            metGarbage = true;
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name == "Underwater")

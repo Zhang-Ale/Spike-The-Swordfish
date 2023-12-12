@@ -16,6 +16,7 @@ TagManager:
   - Teleport
   - StartTrail
   - EndTrail
+  - TrigGarbageMusic
   layers:
   - Default
   - TransparentFX

@@ -16,7 +16,7 @@ public class GarbageMovement : Enemy
 
     void FixedUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, TargetPosition, Interpolator * Time.deltaTime);
+        //transform.position = Vector3.Lerp(transform.position, TargetPosition, Interpolator * Time.deltaTime);
         if(_life <= 0)
         {
             //instantiate 
