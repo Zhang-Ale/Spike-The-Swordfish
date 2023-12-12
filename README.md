@@ -15,7 +15,7 @@
 **How to play:** <br>
 WASD to move, left shift to sprint, left mouse click to attack, ESC to pause game. 
 
-**Build download link:** <br>
+**Build download link:** (please download the entire folder named "Build", not just the exe file) <br>
 [**Drive link**](https://drive.google.com/drive/folders/1dSwEr0GTIrVVaHBqDInLhcjvoZg-xzcV?usp=sharing) <br>
 
 **Credits:** <br>
