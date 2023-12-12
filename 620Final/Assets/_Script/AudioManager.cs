@@ -22,28 +22,28 @@ public class AudioManager : MonoBehaviour
     {
         if (PM.metCurrent)
         {
-            StartCoroutine(ActionOne(backAS, backAS.volume, mFaded ? 0.35f : 0.05f));
+            StartCoroutine(ActionOne(backAS, backAS.volume, mFaded ? 0.3f : 0.05f));
             currentMusic.SetActive(true);
             currentAS.Play(); 
-            StartCoroutine(ActionOne(currentAS, currentAS.volume, mFaded ? 0f : 0.5f));
+            StartCoroutine(ActionOne(currentAS, currentAS.volume, mFaded ? 0f : 0.4f));
         }
         else
         {
-            StartCoroutine(ActionOne(currentAS, currentAS.volume, mFaded ? 0.5f : 0f));
-            StartCoroutine(ActionOne(backAS, backAS.volume, mFaded ? 0.05f : 0.35f));
+            StartCoroutine(ActionOne(currentAS, currentAS.volume, mFaded ? 0.4f : 0f));
+            StartCoroutine(ActionOne(backAS, backAS.volume, mFaded ? 0.05f : 0.3f));
         }
 
         if (PM.metGarbage)
         {
-            StartCoroutine(ActionOne(backAS, backAS.volume, mFaded ? 0.35f : 0f));
+            StartCoroutine(ActionOne(backAS, backAS.volume, mFaded ? 0.3f : 0f));
             garbageMusic.SetActive(true);
             garbageAS.Play(); 
-            StartCoroutine(ActionOne(garbageAS, garbageAS.volume, mFaded ? 0f : 0.5f));
+            StartCoroutine(ActionOne(garbageAS, garbageAS.volume, mFaded ? 0f : 0.4f));
         }
         else
         {
             StartCoroutine(ActionOne(garbageAS, garbageAS.volume, mFaded ? 0.5f : 0f));
-            StartCoroutine(ActionOne(backAS, backAS.volume, mFaded ? 0.05f : 0.35f));
+            StartCoroutine(ActionOne(backAS, backAS.volume, mFaded ? 0.05f : 0.3f));
         }
     }
 

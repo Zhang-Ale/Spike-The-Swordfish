@@ -10,11 +10,20 @@ public class TrailPathFollower : MonoBehaviour
     float distanceTraveled;
     bool travel1;
     public GameObject start1, end1;
+    public ParticleSystem bubbles;
+
     private void Update()
     {
         if (travel1)
         {
+            bubbles.gameObject.SetActive(true); 
+            bubbles.Play(); 
             TravelOne();
+        }
+        else
+        {
+            bubbles.Stop();
+            bubbles.gameObject.SetActive(false);
         }
     }
     void TravelOne()

@@ -46,7 +46,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject tip1, tip2, tip3;
     public bool metCurrent;
     public bool metGarbage;
-    public bool dead; 
+    public bool dead;
+    public ParticleSystem moveTrail1, moveTrail2;
 
     private void Start()
     {
@@ -290,6 +291,8 @@ public class PlayerMovement : MonoBehaviour
                 if (Input.GetButton("Horizontal") || Input.GetButton("Forward") || Input.GetButton("Vertical"))
                 {
                     anim.SetBool("Swim", true);
+
+                    moveTrail1.Play(); moveTrail2.Play(); 
                 }
                 else if((!Input.GetButton("Horizontal") || !Input.GetButton("Forward") || !Input.GetButton("Vertical")))
                 {
