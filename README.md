@@ -4,19 +4,24 @@
 1. Please ignore the name of this repository as this project was originally just an idea for the game jam in class. <br>
 2. Due to having a huge gameplay Unity scene and our lack of knowledge, the game's optimization is heavy and not good, thus we would like to kindly ask our players to be patient during scene transitions. <br>
 3. At the start of the game, sometimes the player can't control the spadefish's movement. A small sprint will help to gain its control. <br>
+<br>
 
 **Team:** <br>
 *Linden Killam, 
 *Hongcheng Zhang
+<br>
 
 **Name:** <br>
 *Spike the Spadefish
+<br>
 
 **How to play:** <br>
 WASD to move, left shift to sprint, left mouse click to attack, ESC to pause game. 
+<br>
 
 **Build download link:** (please download the entire folder named "Build", not just the exe file) <br>
 [**Drive link**](https://drive.google.com/drive/folders/1dSwEr0GTIrVVaHBqDInLhcjvoZg-xzcV?usp=sharing) <br>
+<br>
 
 **Credits:** <br>
 _Angler Fish by Anonymous [CC-BY] via Poly Pizza_<br>
@@ -42,6 +47,7 @@ _trah bag grey by Jens Kull [CC-BY] via Poly Pizza_<br>
 _Tuna Can by Jarlan Perez [CC-BY] via Poly Pizza_<br>
 _Turtle by Poly by Google [CC-BY] via Poly Pizza_<br>
 _Zebra Clown Fish by Quaternius_<br>
+<br>
 
 **Music:** <br>
 _"Following the torrent" [URL](https://youtu.be/6eJuMFs7J00?list=PLwO9-zIqdr4nR6v8eoSCIHF2yxyLCHYxz)_<br>
