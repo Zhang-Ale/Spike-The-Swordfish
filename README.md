@@ -1,4 +1,6 @@
-# GAME-620-FINAL
+# GAME-620-FINAL 
+
+(Please ignore the name of this repository as this project was originally just an idea for the game jam in class)
 
 **Team:** <br>
 *Linden Killam, 
