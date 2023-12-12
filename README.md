@@ -1,13 +1,14 @@
-# GAME-620-MIDTERM
+# GAME-620-FINAL
 
 **Team:**
 *Linden Killam, 
 *Hongcheng Zhang
 
 **Name:**
-
+*Spike the Spadefish
 
 **How to play:**
+WASD to move, left shift to sprint, left mouse click to attack. 
 
 **Credits:**
 
