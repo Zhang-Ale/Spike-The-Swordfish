@@ -15,10 +15,13 @@
 **How to play:** <br>
 WASD to move, left shift to sprint, left mouse click to attack, ESC to pause game. 
 
+**Build download link:** <br>
+[Drive link] (https://drive.google.com/drive/folders/1dSwEr0GTIrVVaHBqDInLhcjvoZg-xzcV?usp=sharing)
+
 **Credits:** <br>
 _Angler Fish by Anonymous [CC-BY] via Poly Pizza_<br>
 _Anglerfish by Quaternius_<br>
-_Blowfish by jeremy [CC-BY] via Poly Pizza_<br>
+_Blowfish by Jeremy [CC-BY] via Poly Pizza_<br>
 _Bottle (Plastic) by Zoe XR [CC-BY] via Poly Pizza_<br>
 _Can Open by Kenney_<br>
 _Crayfish by Poly by Google [CC-BY] via Poly Pizza_<br>
