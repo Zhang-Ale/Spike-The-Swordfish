@@ -8,7 +8,7 @@
 *Spike the Spadefish
 
 **How to play:** <br>
-WASD to move, left shift to sprint, left mouse click to attack. 
+WASD to move, left shift to sprint, left mouse click to attack, ESC to pause game. 
 
 **Credits:** <br>
 _Angler Fish by Anonymous [CC-BY] via Poly Pizza_<br>
