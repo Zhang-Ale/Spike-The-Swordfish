@@ -11,7 +11,6 @@
 WASD to move, left shift to sprint, left mouse click to attack. 
 
 **Credits:**
-
 _Angler Fish by Anonymous [CC-BY] via Poly Pizza_<br>
 _Anglerfish by Quaternius_<br>
 _Blowfish by jeremy [CC-BY] via Poly Pizza_<br>
@@ -37,6 +36,5 @@ _Turtle by Poly by Google [CC-BY] via Poly Pizza_<br>
 _Zebra Clown Fish by Quaternius_<br>
 
 **Music:**
-
-_"Following the torrent" [URL](https://youtu.be/6eJuMFs7J00?list=PLwO9-zIqdr4nR6v8eoSCIHF2yxyLCHYxz)_
-_"The Oratrice's Verdict" [URL](https://youtu.be/qUkxoIu9nfo)_
+_"Following the torrent" [URL](https://youtu.be/6eJuMFs7J00?list=PLwO9-zIqdr4nR6v8eoSCIHF2yxyLCHYxz)_<br>
+_"The Oratrice's Verdict" [URL](https://youtu.be/qUkxoIu9nfo)_<br>
