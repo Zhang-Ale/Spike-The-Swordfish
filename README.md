@@ -16,7 +16,7 @@
 <br>
 
 **How to play:** <br>
-WASD to move, left shift to sprint, left mouse click to attack, ESC to pause game. <br>
+WASD to move, left shift to sprint (hold to swim fast), left mouse click to attack, ESC to pause game. <br>
 <br>
 
 **Build download link:** (please download the entire folder named "Build", not just the exe file) <br>
