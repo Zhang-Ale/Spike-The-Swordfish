@@ -1,4 +1,4 @@
-# GAME-620-FINAL 
+# GAME-620-FINAL INFO
 
 **Read below before play**
 1. Please ignore the name of this repository as this project was originally just an idea for the game jam in class. <br>
@@ -15,15 +15,17 @@
 *Spike the Spadefish<br>
 <br>
 
-**How to play:** <br>
+# How to play 
 WASD to move, left shift to sprint (hold to swim fast), left mouse click to attack, ESC to pause game. <br>
 <br>
 
-**Build download link:** (please download the entire folder named "Build", not just the exe file) <br>
+# Build download link 
+(please download the entire folder named "Build", not just the exe file) <br>
 [**Drive link**](https://drive.google.com/drive/folders/1T5-1QHLdo5BKQHgRX1ycoyQIqgDQebnt?usp=sharing) <br>
 <br>
 
-**Credits:** <br>
+# Credits
+**3D assets:**
 _Angler Fish by Anonymous [CC-BY] via Poly Pizza_<br>
 _Anglerfish by Quaternius_<br>
 _Blowfish by Jeremy [CC-BY] via Poly Pizza_<br>
