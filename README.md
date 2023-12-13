@@ -8,7 +8,11 @@
 *Spike the Spadefish<br>
 
 # How to play 
-WASD to move, left shift to sprint (hold to swim fast), left mouse click to attack, ESC to pause game. <br>
+**WASD** to move. <br>
+**Left shift** to sprint (hold to swim fast). <br>
+**Left mouse click** to attack. <br>
+**E** to interact. <br>
+**ESC** to pause game. <br>
 
 **Read below before playing the game:**
 1. Please ignore the name of this repository as this project was originally just an idea for the game jam in class. <br>
