@@ -20,7 +20,7 @@
 3. At the start of the game, sometimes the player can't control the spadefish's movement. A small sprint will help to gain its control. <br>
 
 # Build download link 
-(please download the entire folder named "Build", not just the exe file) <br>
+(Please download the entire folder named "Build", not just the exe file) <br>
 [**Drive link**](https://drive.google.com/drive/folders/1T5-1QHLdo5BKQHgRX1ycoyQIqgDQebnt?usp=sharing) <br>
 
 # Credits
