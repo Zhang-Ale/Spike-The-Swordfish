@@ -13,7 +13,7 @@
 **Left mouse click** to attack. <br>
 **E** to interact. <br>
 **ESC** to pause game. <br>
-
+**
 **Read below before playing the game:**
 1. Please ignore the name of this repository as this project was originally just an idea for the game jam in class. <br>
 2. Due to having a huge gameplay Unity-Scene and due to our lack of knowledge, the game's optimization is heavy and not good, thus we would like to kindly ask our players to be patient during scene transitions. <br>
