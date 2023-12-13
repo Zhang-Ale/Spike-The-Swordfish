@@ -6,7 +6,6 @@
 
 **Name:** <br>
 *Spike the Spadefish<br>
-<br>
 
 # How to play 
 WASD to move, left shift to sprint (hold to swim fast), left mouse click to attack, ESC to pause game. <br>
@@ -15,12 +14,10 @@ WASD to move, left shift to sprint (hold to swim fast), left mouse click to atta
 1. Please ignore the name of this repository as this project was originally just an idea for the game jam in class. <br>
 2. Due to having a huge gameplay Unity-Scene and due to our lack of knowledge, the game's optimization is heavy and not good, thus we would like to kindly ask our players to be patient during scene transitions. <br>
 3. At the start of the game, sometimes the player can't control the spadefish's movement. A small sprint will help to gain its control. <br>
-<br>
 
 # Build download link 
 (please download the entire folder named "Build", not just the exe file) <br>
 [**Drive link**](https://drive.google.com/drive/folders/1T5-1QHLdo5BKQHgRX1ycoyQIqgDQebnt?usp=sharing) <br>
-<br>
 
 # Credits
 **3D assets:**
