@@ -1,6 +1,6 @@
-# GAME-620-FINAL INFO
+# GAME: Spike the Swordfish (complete game)
 
-**Team:** <br>
+**Made by:** <br>
 *Linden Killam, 
 *Hongcheng Zhang<br>
 
