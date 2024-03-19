@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform attackHitBox;
     public float attackRange = 1f;
     public LayerMask enemyLayers;
-    public int attackDamage = 10;
+    public int attackDamage = 5;
     GameObject fishModel;
     [Header("Others")]
     public SkinnedMeshRenderer MR;
@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     public bool metGarbage;
     public bool dead;
     public ParticleSystem moveTrail1, moveTrail2;
+    public bool canLookAround; 
 
     private void Start()
     {
@@ -60,12 +61,17 @@ public class PlayerMovement : MonoBehaviour
         fishModel = transform.GetChild(0).GetComponent<GameObject>();
         currentSpeed = speed;
         hold = 100f;
-        metCurrent = false; 
+        metCurrent = false;
+        canLookAround = true; 
     }
 
     private void Update()
     {
-        LookAround();
+        if (canLookAround)
+        {
+            LookAround();
+        }
+
         if (Time.time >= nextAttackTime)
         {
             if (Input.GetMouseButtonDown(0))
@@ -148,13 +154,12 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator Poisoned()
     {
         tip2.SetActive(true);
-        yield return new WaitForSeconds(10.5f);
+        yield return new WaitForSeconds(10f);
         MR.materials[1].DOColor(new Color(0.2f, 0.4f, 0.62f, 1f), 2);
         isPoisoned = false;
         poisoned = false;
         tip2.SetActive(false);
     }
-
 
     void SwitchMovement()
     {
@@ -178,7 +183,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (isHoldActive && holdTime >= holdLength)
             {
-                speed = 15f;
+                speed = 13f;
                 currentSpeed = speed;
                 anim.SetBool("SwimFast", true);
                 StopCoroutine("StartCounting");
@@ -188,6 +193,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             anim.SetBool("SwimFast", false);
+            speed = 6f;
         }
         
         if (Input.GetButtonUp("SpeedUp"))
@@ -261,7 +267,6 @@ public class PlayerMovement : MonoBehaviour
     public float forceMultiplicator = 100;
     private void Move()
     {
-        rb.constraints = RigidbodyConstraints.None;
         moveX = Input.GetAxis("Horizontal");
         moveY = Input.GetAxis("Vertical");
         moveZ = Input.GetAxis("Forward");     
@@ -324,7 +329,7 @@ public class PlayerMovement : MonoBehaviour
         foreach (Collider enemy in hitEnemies)
         {
             var damageable = enemy.GetComponent<IDamageable>();
-            damageable.TakeDamage(attackDamage);
+            damageable.TakeDamage(attackDamage/2);
         }
     }
 
@@ -340,6 +345,8 @@ public class PlayerMovement : MonoBehaviour
         {
             isPoisoned = true;
             poisoned = true;
+            var damageable = other.GetComponent<IDamageable>();
+            damageable.TakeDamage(attackDamage);
         }
 
         if (other.gameObject.name == "Underwater")

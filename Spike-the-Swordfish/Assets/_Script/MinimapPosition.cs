@@ -8,6 +8,6 @@ public class MinimapPosition : MonoBehaviour
 
     void Update()
     {
-        minimapIcon.transform.position = new Vector3(transform.position.x, transform.position.y +0.3f, transform.position.z);
+        minimapIcon.transform.position = new Vector3(transform.position.x, transform.position.y +0.5f, transform.position.z);
     }
 }

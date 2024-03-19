@@ -13,6 +13,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     //static float _allLife = 10;//change life for all enemies (can be used for achievement of how many enemies have hit)
     public virtual void TakeDamage(float damage)
     {
-        _life = Mathf.Max(_life - damage, 0);
+        _life -= damage;
     }
 }

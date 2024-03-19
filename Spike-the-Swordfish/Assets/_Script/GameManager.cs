@@ -116,6 +116,7 @@ public class GameManager : MonoBehaviour
         bar.current = 0;
         gameStart = true; 
     }
+
     public int tipCount; 
     IEnumerator GenerateTips()
     {

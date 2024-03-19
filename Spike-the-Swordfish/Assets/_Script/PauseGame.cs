@@ -32,6 +32,7 @@ public class PauseGame : MonoBehaviour
     {
         if (gameIsPaused)
         {
+            PM.canLookAround = false; 
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -40,6 +41,7 @@ public class PauseGame : MonoBehaviour
         }
         else
         {
+            PM.canLookAround = true; 
             Time.timeScale = 1;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
