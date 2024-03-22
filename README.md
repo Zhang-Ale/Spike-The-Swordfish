@@ -21,7 +21,7 @@
 
 # Build download link 
 (Please download the entire folder named "Build", not just the exe file) <br>
-[**Drive link**](https://drive.google.com/drive/folders/1T5-1QHLdo5BKQHgRX1ycoyQIqgDQebnt?usp=sharing) <br>
+[**Drive link**](https://drive.google.com/drive/folders/1qamMLIwgofiYr9BCGPi3DPyvrO-6wxia?usp=sharing) <br>
 
 # Credits
 **3D assets:**
