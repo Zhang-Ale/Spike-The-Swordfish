@@ -2,7 +2,7 @@
 
 **Made by:** <br>
 *Linden Killam (level designer) <br>
-*Hongcheng Zhang (game programmer)<br>
+*Hongcheng Zhang (Unity coder)<br>
 
 **Name:** <br>
 *Spike the Spadefish<br>
