@@ -1,8 +1,8 @@
 # GAME: Spike the Swordfish (complete game)
 
 **Made by:** <br>
-*Linden Killam, 
-*Hongcheng Zhang<br>
+*Linden Killam (level designer), 
+*Hongcheng Zhang (game programmer)<br>
 
 **Name:** <br>
 *Spike the Spadefish<br>
