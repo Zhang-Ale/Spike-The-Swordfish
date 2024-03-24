@@ -12,7 +12,7 @@
 **Left shift** to sprint (hold to swim fast). <br>
 **Left mouse click** to attack. <br>
 **E** to interact. <br>
-**ESC** to pause the game. <br>
+**ESC** to pause the game. 
 <br>
 
 # Build download link 
