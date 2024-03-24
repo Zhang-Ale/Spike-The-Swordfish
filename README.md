@@ -1,7 +1,7 @@
 # GAME: Spike the Swordfish (complete game)
 
 **Made by:** <br>
-*Linden Killam (level designer), 
+*Linden Killam (level designer) <br>
 *Hongcheng Zhang (game programmer)<br>
 
 **Name:** <br>
@@ -12,7 +12,7 @@
 **Left shift** to sprint (hold to swim fast). <br>
 **Left mouse click** to attack. <br>
 **E** to interact. <br>
-**ESC** to pause game. <br>
+**ESC** to pause the game. <br>
 <br>
 **Read below before playing the game:**
 1. Please ignore the name of this repository as this project was originally just an idea for the game jam in class. <br>
