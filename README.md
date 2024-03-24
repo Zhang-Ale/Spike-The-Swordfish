@@ -1,4 +1,4 @@
-# GAME: Spike the Swordfish (complete game)
+# GAME: Spike the Swordfish 
 
 **Made by:** <br>
 *Linden Killam (level designer) <br>
