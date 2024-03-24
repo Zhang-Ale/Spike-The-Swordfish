@@ -1,8 +1,8 @@
-# GAME: Spike the Swordfish (complete game)
+# GAME: Spike the Swordfish 
 
 **Made by:** <br>
-*Linden Killam, 
-*Hongcheng Zhang<br>
+*Linden Killam (environment designer) <br>
+*Hongcheng Zhang (Unity coder)<br>
 
 **Name:** <br>
 *Spike the Spadefish<br>
@@ -12,16 +12,12 @@
 **Left shift** to sprint (hold to swim fast). <br>
 **Left mouse click** to attack. <br>
 **E** to interact. <br>
-**ESC** to pause game. <br>
+**ESC** to pause the game. 
 <br>
-**Read below before playing the game:**
-1. Please ignore the name of this repository as this project was originally just an idea for the game jam in class. <br>
-2. Due to having a huge gameplay Unity-Scene and due to our lack of knowledge, the game's optimization is heavy and not good, thus we would like to kindly ask our players to be patient during scene transitions. <br>
-3. At the start of the game, sometimes the player can't control the spadefish's movement. A small sprint will help to gain its control. <br>
 
 # Build download link 
 (Please download the entire folder named "Build", not just the exe file) <br>
-[**Drive link**](https://drive.google.com/drive/folders/1T5-1QHLdo5BKQHgRX1ycoyQIqgDQebnt?usp=sharing) <br>
+[**Drive link**](https://drive.google.com/drive/folders/1qamMLIwgofiYr9BCGPi3DPyvrO-6wxia?usp=sharing) <br>
 
 # Credits
 **3D assets:**
