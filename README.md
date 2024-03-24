@@ -1,7 +1,7 @@
 # GAME: Spike the Swordfish 
 
 **Made by:** <br>
-*Linden Killam (level designer) <br>
+*Linden Killam (environment designer) <br>
 *Hongcheng Zhang (Unity coder)<br>
 
 **Name:** <br>
