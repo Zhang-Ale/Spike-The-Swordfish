@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
             LookAround();
         }
 
-        if (Time.time >= nextAttackTime)
+        if (Time.time >= nextAttackTime && !metCurrent)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -124,6 +124,15 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             attacking = false;
+        }
+
+        if (metCurrent)
+        {
+            anim.SetBool("SwimFast", true);
+        }
+        else
+        {
+            anim.SetBool("SwimFast", false);
         }
     }
 

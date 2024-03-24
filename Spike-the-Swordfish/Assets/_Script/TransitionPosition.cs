@@ -23,8 +23,7 @@ public class TransitionPosition : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
+    private void OnTriggerStay(Collider other) { 
         if (other.CompareTag("Player"))
         {
             canTrans = true; 

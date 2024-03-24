@@ -27,12 +27,15 @@ public class SceneLoad : MonoBehaviour
         }
         else
         {
-            player.transform.GetChild(0).GetComponent<PlayerMovement>().enabled = false;
+            player.transform.GetComponent<PlayerMovement>().enabled = false;
             yield return new WaitForSeconds(0.25f);
+
             player.transform.position = GetDestination(destinationTag).transform.position;
             player.transform.rotation = GetDestination(destinationTag).transform.rotation;
+
             //player.transform.SetLocalPositionAndRotation(GetDestination(destinationTag).transform.position, GetDestination(destinationTag).transform.rotation);
-            player.transform.GetChild(0).GetComponent<PlayerMovement>().enabled = true;
+            
+            player.transform.GetComponent<PlayerMovement>().enabled = true;
             yield return null;
         } 
     }
